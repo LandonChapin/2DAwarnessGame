@@ -1,0 +1,269 @@
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <string>
+#include "Player.h"
+#include "Hitbox.h"
+
+
+PlayerClass::PlayerClass(std::string texturePath, float speed) : EntityClass(texturePath , speed)
+{
+	// Load the texture from the file
+	if (!texture.loadFromFile(texturePath))
+	{
+		std::cerr << "Error loading texture!" << std::endl;
+	}
+
+	// Set the texture to the sprite
+	//sprite.setTexture(texture);
+	
+	// Set the texture rect to the single base sprite
+	sprite.setTextureRect(sf::IntRect(0, 0, 32, 64));
+
+	// Set the position of the player
+	sprite.setPosition(400, 800);
+	// makesure that the players "Center" is the center of the sprite
+	//was 32 32
+	sprite.setOrigin(16, 32);
+	// Set the scale of the player to make it look better
+	sprite.setScale(2.0f * direction, 2.0f);
+
+	hitbox.setPosition(sf::Vector2f(getPosition().x - 100.f, getPosition().y + 100.f)); // Adjusted position to be lower and more to the left  
+	hitbox.setSize(sf::Vector2f(64.f, 128.f)); // Set the size of the hitbox  
+	hitbox.setColor(sf::Color(0, 255, 0, 100)); // Set the color of the hitbox
+
+	
+
+	// Set the speed of the player
+	this->speed = speed;
+};
+
+
+
+
+
+void PlayerClass::draw(sf::RenderWindow& window)
+{
+	// Draw the player
+	window.draw(sprite);
+	//draw the hitbox
+	//hitbox.draw(window);
+	//draw the text
+	window.draw(nameText);
+}
+
+// The direction the player is facing
+int direction = 1;
+
+
+
+
+// Function to handle all the things the player needs to update
+void PlayerClass::update(float dt, sf::RenderWindow& window)
+{
+	handleInput(dt);
+	// Update the hitbox position to match the sprite position
+	hitbox.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
+	nameText.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y + 0.f));
+	timeSinceLastHit += dt;
+
+	// Create a view that follows the player
+	sf::View view = window.getView();
+	view.setCenter(sprite.getPosition()); // Center the view on the player's position
+	window.setView(view); // Apply the updated view to the window
+}
+
+void PlayerClass::handleInput(float dt)
+{
+	// Handle the input
+	// Out movement vector
+	sf::Vector2f movement(0, 0);
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+
+		direction = -1; // Move left
+		movement.x -= speed * dt; // Move left
+		moved = true; // Set the moved flag to true
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		direction = 1; // Move right
+		movement.x += speed * dt; // Move right
+		moved = true; // Set the moved flag to true
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !jumping && !falling && onGround) {
+		movement.y -= speed * dt * 10; // Move up
+		jumping = true; // Set the moved flag to true
+		onGround = false; // Set the onGround flag to false
+		playerGravity = -115; // Reset the player gravity
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+		// Interact
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K)) {
+		playerDead = true; // Set the playerDead flag to true
+		curentFrame = 0; // Reset the current frame
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
+		takeDamage(1, 1);
+	}
+
+	// Move the player
+	if (jumping && !falling && !onGround || !jumping && falling && !onGround) {
+		playerGravity += 1; // Increase the gravity
+		movement.y += playerGravity * dt; // Move down
+		if (playerGravity > 0) {
+			jumping = false; // Set the jumping flag to false
+			falling = true; // Set the falling flag to true
+		}
+	}
+	if (onGround && !jumping && !falling) {
+		playerGravity = 0; // Reset the player gravity
+	}
+	if (sprite.getPosition().y >= 674) {
+		onGround = true; // Set the onGround flag to true
+		jumping = false; // Set the jumping flag to false
+		falling = false; // Set the falling flag to false
+		playerGravity = 0; // Reset the player gravity
+		movement.y = 0; // Reset the movement
+		sprite.setPosition(sprite.getPosition().x, 672); // Set the position of the player
+	}
+
+	sprite.move(movement * speed * dt);
+
+	// Handle the animation
+	//handleAnimation(direction, dt);
+}
+
+
+// Function to handle the animation of the player
+void PlayerClass::handleAnimation(int direction, float dt)
+{
+	// Increment the elapsed time
+	timeSinceLastFrame += dt;
+
+	// Set The texture for the frame
+	// Array of walking frames
+	std::vector<std::string> walkArray = {
+		
+	};
+	// Array of Death frames
+	std::vector<std::string> deathArray = {
+		
+	};
+	// Array of caught frames
+	std::vector<std::string> caughtArray = {
+		
+	};
+	// Array of Idle frames
+	std::vector<std::string> idleArray = {
+		
+	};
+
+	// Array of sleeping frames
+	std::vector<std::string> sleepArray = {
+		
+	};
+
+	if (moved && !jumping) {
+		texture.loadFromFile(walkArray[curentFrame % 6]);
+		timePerFrame = 6.0f;
+		FrameEnd = 6;
+		SleepCounter = 0;
+	}
+	else if (jumping) {
+		texture.loadFromFile("");
+		SleepCounter = 0;
+	}
+	else if (falling) {
+		texture.loadFromFile("");
+		SleepCounter = 0;
+	}
+	else if (playerDead) {
+		if (curentFrame < 21) {
+			texture.loadFromFile(deathArray[curentFrame / 2]);
+		}
+
+		else if (curentFrame == 12) {
+			curentFrame = 0; // Reset the current frame
+
+
+			// Call the death function
+			playerDead = false; // Reset the playerDead flag
+			sprite.move(200, 0); // Move the player down
+			health = 10; // Reset the health
+			//soul_count = soul_count - 10;
+		}
+
+	}
+	else if (SleepCounter >= 10000) {
+		texture.loadFromFile(sleepArray[curentFrame % 19]);//
+		timePerFrame = 19.0f; // 1/10 of a second
+		FrameEnd = 19;
+	}
+	else {
+		texture.loadFromFile(idleArray[curentFrame % 12]);
+		timePerFrame = 12.0f; // 1/10 of a second
+		FrameEnd = 12;
+		SleepCounter = SleepCounter + 1;
+	}
+
+	// If the elapsed time is greater than the time per frame
+	if (timeSinceLastFrame > timePerFrame)
+	{
+		if (curentFrame == FrameEnd)
+		{
+			curentFrame = 0;
+		}
+		// and -1 being moving left. (To make the flipping easier)
+		sprite.setScale(2.0f * direction, 2.0f);
+
+		// Increment the current frame
+		curentFrame++;
+
+		// Reset the elapsed time
+		timeSinceLastFrame = 0;
+	}
+
+	moved = false; // Reset the moved flag
+}
+
+int PlayerClass::getHealth() const {
+
+	return health;
+}
+
+void PlayerClass::takeDamage(int amount, int direction) {
+	if (health > 0) {
+		health -= amount;
+		std::cout << "Player took damage! Health: " << health << std::endl;
+		timeSinceLastHit = 0.f;
+		sprite.move(-direction * 50, 0); // Move the player back when taking damage
+	}
+	if (health <= 0 && !playerDead) {
+		playerDead = true; // Set the playerDead flag to true
+		curentFrame = 0; // Reset the current frame
+		std::cout << "Player is dead!" << std::endl;
+	}
+
+}
+
+void PlayerClass::setPlayerName(const std::string name) {
+	displayName = name;
+	nameText.setString(displayName);
+	nameText.setOrigin(nameText.getLocalBounds().width / 2, nameText.getLocalBounds().height / 2); // Set the origin to the center of the text
+};
+
+void PlayerClass::initializeFont() {
+	// Initialize display name
+	if (!nameFont.loadFromFile("Assets/Fonts/Seagram_tfb/Seagram tfb.ttf")) {
+		std::cerr << "Failed to load font!" << std::endl;
+	}
+	nameText.setFont(nameFont); // Set the font for the display name
+
+	nameText.setCharacterSize(24); // Set the character size for the display name
+	nameText.setFillColor(sf::Color::White); // Set the color for the display name
+	nameText.setOrigin(nameText.getLocalBounds().width / 2, nameText.getLocalBounds().height / 2); // Set the origin to the center of the text
+
+};
