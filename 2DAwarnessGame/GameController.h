@@ -3,6 +3,9 @@
 #include "player.h"
 #include "chest.h"
 #include "entity.h"
+#include "npcManager.h"
+#include "pauseMenu.h"
+#include "Level.h"
 
 // Header file for the GameController class
 class GameController {
@@ -22,11 +25,12 @@ private:
 	// test variables
 	sf::RectangleShape background;
 	sf::RectangleShape ground;
-	Chest chest;
+	PlayWorld world; // Instance of the PlayWorld class
 
+	PauseMenuClass pauseMenu; // Instance of the pause menu class
 
 	void runPauseMenu();
-	void initializeLevel(int level);
+	void initializeLevel(int level, NpcManager* npcManager);
 };
 
 #pragma once

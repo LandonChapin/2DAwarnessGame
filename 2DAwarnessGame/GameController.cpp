@@ -7,19 +7,27 @@ GameController::GameController(){
 	window.create(sf::VideoMode(1600, 900), "2D Awareness Game");
 	isPaused = false;
 	dt = 0.1f;
-	player = PlayerClass("", 10); // Assuming Player is a class that handles player logic
+	player = PlayerClass("Assets/Player/AG_Player.png", 10); // Assuming Player is a class that handles player logic
+	pauseMenu.setCurrentMenu(0); // Set the current menu to 0 (Main Menu)
 	
-	background = sf::RectangleShape(sf::Vector2f(8000, 6000));
+	background = sf::RectangleShape(sf::Vector2f(5000, 1500));
 	background.setFillColor(sf::Color::Blue);
-	ground = sf::RectangleShape(sf::Vector2f(8000, 100));
+	ground = sf::RectangleShape(sf::Vector2f(5000, 800));
 	ground.setFillColor(sf::Color::Green);
-	ground.setPosition(0, 650);
-	chest = Chest("", 600, 670, 100.f, 100.f, 50, 50, &player);
+	ground.setPosition(0, 0);
+	world = PlayWorld();
+	world.initialize(1);
+	
+
+
 	
 }
 
 void GameController::playGame() {
 	player.initializeFont(); // Load a font for the player
+	NpcManager npcManager(&player); // Initialize the NPC manager
+	
+
 	// Start the game loop
 	while (true) {
 		//close the window  
@@ -40,13 +48,13 @@ void GameController::playGame() {
 			runPauseMenu();
 			continue; // Skip the rest of the loop while paused
 		}
-		else { initializeLevel(currentLevel); }
+		else { initializeLevel(currentLevel, &npcManager); }
 	}
 }
 
-void GameController::initializeLevel(int level) {
-	// Set the current level
-	currentLevel = level;
+void GameController::initializeLevel(int level, NpcManager* npcManager) {
+
+
 	switch (level) {
 		case 0:
 			// Logic for initializing level 0
@@ -56,14 +64,19 @@ void GameController::initializeLevel(int level) {
 			// Logic for initializing level 1
 			window.clear(sf::Color::Black);
 			
-
-			window.draw(background); // Draw the background
-			window.draw(ground); // Draw the ground
-			chest.update(dt, window); // Update the chest state
-			chest.draw(window); // Draw the chest
-
+			world.update(player, window); // Update the game world
 			player.update(dt, window);
+
+			world.draw(window); // Draw the game world
+			
+			npcManager ->npcUpdate(dt, window); // Update the entities
+			npcManager->npcDraw(window); // Draw the entities
+
+			
 			player.draw(window);
+
+			world.drawForeground(window); // Draw the foreground elements of the world
+
 			window.display();
 			break;
 		default:
@@ -74,17 +87,13 @@ void GameController::initializeLevel(int level) {
 
 void GameController::runPauseMenu() {
 	// Display pause menu
-	window.clear(sf::Color::Black);
-	sf::Font font;
-	font.loadFromFile("Assets/Fonts/Seagram_tfb/Seagram tfb.ttf"); // Load a font file
-
-	sf::Text pauseText;
-	pauseText.setPosition(player.getPosition().x - 300, player.getPosition().y);
-	pauseText.setString("Game Paused. Press 'I' or 'Escape' to resume.");
-	pauseText.setCharacterSize(35);
-	pauseText.setFillColor(sf::Color::White);
-	pauseText.setFont(font);
-	window.draw(pauseText);
-	window.display();
+	window.clear(sf::Color::White);
+	isPaused = pauseMenu.update(window, player);
+	if (!isPaused) {
+		pauseMenu.setCurrentMenu(0);
+	}
 	
+	
+	pauseMenu.draw(window); // Draw the pause menu
+	window.display();
 };

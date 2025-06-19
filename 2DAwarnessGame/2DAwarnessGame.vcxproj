@@ -132,10 +132,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="chest.cpp" />
+    <ClCompile Include="Clues.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Hitbox.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="npcManager.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +150,8 @@
     <ClInclude Include="Interact.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="npcManager.h" />
+    <ClInclude Include="pauseMenu.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="s_Item.h" />
   </ItemGroup>

@@ -32,6 +32,11 @@ public:
 	}
 
 	std::vector <s_Item> playerInventory{
+		{"WHAT IS AIR POLLUTION?", "Air pollution is when harmful gases, dust, \nand other particles are present in the air we breathe.", false},
+		{"WHERE DOES AIR POLLUSTION COME FROM?", "Air pollution can originate from various sources,\n including cars, factories, power plants, wildfires, and volcanic eruptions.", false},
+		{"WHY IS AIR POLLUTION BAD?", "Air pollution can harm our health, especially for children.\n It can cause respiratory problems, such as asthma and bronchitis,\n as well as eye irritation, headaches, and nausea.", false},
+		{"HOW DOES AIR POLUTION AFFECT CHILDREN?", "Children are more vulnerable to the effects of air pollution\n than adults because their lungs are still developing.\n Air pollution can damage their lungs\n and increase their risk of respiratory diseases.", false},
+		{"WHAT CAN WE DO ABOUT AIR POLLUTION?", "We can help reduce air pollution by:\nWalking, biking, or taking public transportation instead of driving\nUsing energy - efficient appliances\nRecycling and composting\nPlanting trees\nSupporting policies that promote clean energy", false}
 	};
 private:
 	// Items that the player has
@@ -64,6 +69,22 @@ private:
 
 	int SleepCounter = 0;
 	void handleAnimation(int direction, float dt);
+	// Array of walking frames
+	std::vector<std::string> walkArray = {
+		"Assets/Player/Walk/AG_Player_Walk1.png",
+		"Assets/Player/Walk/AG_Player_Walk2.png",
+		"Assets/Player/Walk/AG_Player_Walk3.png",
+	};
+	// Array of Idle frames
+	std::vector<std::string> idleArray = {
+		"Assets/Player/AG_Player.png",
+		"Assets/Player/Idle/AG_Player_Idle2.png",
+	};
+
+	// Array of sleeping frames
+	std::vector<std::string> sleepArray = {
+
+	};
 };
 
 #endif

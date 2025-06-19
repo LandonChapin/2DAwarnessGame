@@ -3,8 +3,7 @@
 
 
 struct s_Item {
-	std::string Name;
-	std::string imagePath;
+	std::string Question;
 	std::string Decription;
 	bool isCollected;
 };

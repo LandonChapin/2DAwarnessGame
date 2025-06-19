@@ -14,7 +14,7 @@ PlayerClass::PlayerClass(std::string texturePath, float speed) : EntityClass(tex
 	}
 
 	// Set the texture to the sprite
-	//sprite.setTexture(texture);
+	sprite.setTexture(texture);
 	
 	// Set the texture rect to the single base sprite
 	sprite.setTextureRect(sf::IntRect(0, 0, 32, 64));
@@ -25,7 +25,7 @@ PlayerClass::PlayerClass(std::string texturePath, float speed) : EntityClass(tex
 	//was 32 32
 	sprite.setOrigin(16, 32);
 	// Set the scale of the player to make it look better
-	sprite.setScale(2.0f * direction, 2.0f);
+	sprite.setScale(3.0f * direction, 3.0f);
 
 	hitbox.setPosition(sf::Vector2f(getPosition().x - 100.f, getPosition().y + 100.f)); // Adjusted position to be lower and more to the left  
 	hitbox.setSize(sf::Vector2f(64.f, 128.f)); // Set the size of the hitbox  
@@ -121,19 +121,19 @@ void PlayerClass::handleInput(float dt)
 	if (onGround && !jumping && !falling) {
 		playerGravity = 0; // Reset the player gravity
 	}
-	if (sprite.getPosition().y >= 674) {
+	if (sprite.getPosition().y >= 647) {
 		onGround = true; // Set the onGround flag to true
 		jumping = false; // Set the jumping flag to false
 		falling = false; // Set the falling flag to false
 		playerGravity = 0; // Reset the player gravity
 		movement.y = 0; // Reset the movement
-		sprite.setPosition(sprite.getPosition().x, 672); // Set the position of the player
+		sprite.setPosition(sprite.getPosition().x, 645); // Set the position of the player
 	}
 
 	sprite.move(movement * speed * dt);
 
 	// Handle the animation
-	//handleAnimation(direction, dt);
+	handleAnimation(direction, dt);
 }
 
 
@@ -144,32 +144,12 @@ void PlayerClass::handleAnimation(int direction, float dt)
 	timeSinceLastFrame += dt;
 
 	// Set The texture for the frame
-	// Array of walking frames
-	std::vector<std::string> walkArray = {
-		
-	};
-	// Array of Death frames
-	std::vector<std::string> deathArray = {
-		
-	};
-	// Array of caught frames
-	std::vector<std::string> caughtArray = {
-		
-	};
-	// Array of Idle frames
-	std::vector<std::string> idleArray = {
-		
-	};
-
-	// Array of sleeping frames
-	std::vector<std::string> sleepArray = {
-		
-	};
+	
 
 	if (moved && !jumping) {
-		texture.loadFromFile(walkArray[curentFrame % 6]);
-		timePerFrame = 6.0f;
-		FrameEnd = 6;
+		texture.loadFromFile(walkArray[curentFrame % 3]);
+		timePerFrame = 12.0f;
+		FrameEnd = 3;
 		SleepCounter = 0;
 	}
 	else if (jumping) {
@@ -180,32 +160,15 @@ void PlayerClass::handleAnimation(int direction, float dt)
 		texture.loadFromFile("");
 		SleepCounter = 0;
 	}
-	else if (playerDead) {
-		if (curentFrame < 21) {
-			texture.loadFromFile(deathArray[curentFrame / 2]);
-		}
-
-		else if (curentFrame == 12) {
-			curentFrame = 0; // Reset the current frame
-
-
-			// Call the death function
-			playerDead = false; // Reset the playerDead flag
-			sprite.move(200, 0); // Move the player down
-			health = 10; // Reset the health
-			//soul_count = soul_count - 10;
-		}
-
-	}
-	else if (SleepCounter >= 10000) {
+	/*else if (SleepCounter >= 10000) {
 		texture.loadFromFile(sleepArray[curentFrame % 19]);//
 		timePerFrame = 19.0f; // 1/10 of a second
 		FrameEnd = 19;
-	}
+	}*/
 	else {
-		texture.loadFromFile(idleArray[curentFrame % 12]);
-		timePerFrame = 12.0f; // 1/10 of a second
-		FrameEnd = 12;
+		texture.loadFromFile(idleArray[curentFrame % 2]);
+		timePerFrame = 24.0f; // 1/10 of a second
+		FrameEnd = 2;
 		SleepCounter = SleepCounter + 1;
 	}
 
@@ -217,7 +180,7 @@ void PlayerClass::handleAnimation(int direction, float dt)
 			curentFrame = 0;
 		}
 		// and -1 being moving left. (To make the flipping easier)
-		sprite.setScale(2.0f * direction, 2.0f);
+		sprite.setScale(3.0f * direction, 3.0f);
 
 		// Increment the current frame
 		curentFrame++;
@@ -227,6 +190,7 @@ void PlayerClass::handleAnimation(int direction, float dt)
 	}
 
 	moved = false; // Reset the moved flag
+	sprite.setTexture(texture); // Set the texture of the sprite to the current frame
 }
 
 int PlayerClass::getHealth() const {

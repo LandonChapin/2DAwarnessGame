@@ -7,23 +7,35 @@ class PlayWorld {
 public:
 	PlayWorld(int world_num);
 	PlayWorld() {};
-	//void loadTextures(const std::vector<std::string>& textureFiles);
-	//void scaleTextures(sf::RenderWindow& window);
+	void loadTextures(const std::vector<std::string>& textureFiles);
+	void scaleTextures(sf::RenderWindow& window);
 	void update(PlayerClass player, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 	void drawForeground(sf::RenderWindow& window);
+	void initialize(int episodeNum);
+
 private:
 	sf::Texture skyTexture;
-	sf::Texture backgroundTexture;
+	sf::Texture background1Texture;
+	sf::Texture background2Texture;
+	sf::Texture background3Texture;
+	sf::Texture background4Texture;
+	sf::Texture background5Texture;
 	sf::Texture groundTexture;
 	sf::Texture foregroundTexture;
 
 	sf::Sprite skySprite;
-	sf::Sprite backgroundSprite;
+	sf::Sprite background1Sprite;
+	sf::Sprite background2Sprite;
+	sf::Sprite background3Sprite;
+	sf::Sprite background4Sprite;
+	sf::Sprite background5Sprite;
 	sf::Sprite groundSprite;
 	sf::Sprite foregroundSprite;
 
 	std::vector<std::string> mapFiles;
-	//int world_num = 1; // The current world number
+	int world_num = 1; // The current world number
+
+	float PARALLAX_FACTORS[5] = { 0.8f, 0.65f, 0.5f, 0.35f, 0.2f };
 };
 #pragma once
