@@ -5,11 +5,11 @@ NpcManager::NpcManager(PlayerClass* player) {
 	// Initialize the NPC manager
 
 	npcs = {
-		new Chest("","", 600, 670, 100.f, 100.f, 50, 50, player, 0),
-		new Chest("","", 1200, 670, 100.f, 100.f, 50, 50, player, 1),
-		new Chest("","", 1500, 670, 100.f, 100.f, 50, 50, player, 2),
-		new Chest("","", 1800, 670, 100.f, 100.f, 50, 50, player, 3),
-		new Chest("","", 2000, 670, 100.f, 100.f, 50, 50, player, 4),
+		new Chest("","", 600, 690, 100.f, 100.f, 50, 50, player, 0),
+		new Chest("","", 3200, 690, 100.f, 100.f, 50, 50, player, 1),
+		new Chest("","", 1500, 690, 100.f, 100.f, 50, 50, player, 2),
+		new Chest("","", 2800, 690, 100.f, 100.f, 50, 50, player, 3),
+		new Chest("","", 2000, 690, 100.f, 100.f, 50, 50, player, 4),
 	};
 }
 

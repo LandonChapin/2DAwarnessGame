@@ -21,7 +21,7 @@ void cluesMenuClass::setupText(sf::Text& text, const std::string& str, int size,
 	text.setCharacterSize(size);
 	text.setFillColor(color);
 	text.setPosition(x, y);
-	itemDescriptionText.setLineSpacing(1.75f);
+	text.setLineSpacing(1.75f);
 }
 
 void cluesMenuClass::updateButtonHover(sf::Text& button, Hitbox& hitbox, const sf::Vector2f& mousePos) {

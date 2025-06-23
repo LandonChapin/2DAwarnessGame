@@ -45,6 +45,12 @@
     <ClCompile Include="Clues.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="savingClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="saveMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameController.h">

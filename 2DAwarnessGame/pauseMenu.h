@@ -17,9 +17,46 @@ class savingMenuClass {
 
 public:
 	savingMenuClass();
-	~savingMenuClass();
-	void draw(sf::RenderWindow window);
-	void update();
+	
+	void draw(sf::RenderWindow& window);
+	bool update(PlayerClass& player, sf::RenderWindow& window, int i);
+	void resetSaveMenu();
+
+	int getSaveSlot() const { return saveSlot; }
+
+private:
+	sf::Font font;
+	sf::Text saveText;
+	sf::Text loadText;
+
+	int saveSlot = 1;
+
+	int saving = 0; // 1 for saving, 2 for loading
+
+	int inputDelay = 0;
+
+	void setupButton(sf::Text& button, const std::string& text, int charSize, sf::Color color, float x, float y);
+	void setupText(sf::Text& text, const std::string& str, int size, sf::Color color, float x, float y);
+	void updateButtonHover(sf::Text& button, Hitbox& hitbox, const sf::Vector2f& mousePos);
+
+	std::vector <s_button> savingMenuButtonArray{
+		s_button{std::string("SAVE SLOT 1"),sf::Text(), Hitbox()},
+		s_button{std::string("SAVE SLOT 2"),sf::Text(), Hitbox()},
+		s_button{std::string("SAVE SLOT 3"),sf::Text(), Hitbox()}
+	};
+
+	std::vector <s_button> loadingMenuButtonArray{
+		s_button{std::string("LOAD SLOT 1"),sf::Text(), Hitbox()},
+		s_button{std::string("LOAD SLOT 2"),sf::Text(), Hitbox()},
+		s_button{std::string("LOAD SLOT 3"),sf::Text(), Hitbox()}
+	};
+
+	void handleSaveSlot1Clicked();
+	void handleSaveSlot2Clicked();
+	void handleSaveSlot3Clicked();
+	void handleLoadSlot1Clicked();
+	void handleLoadSlot2Clicked();
+	void handleLoadSlot3Clicked();
 
 };
 
@@ -80,15 +117,21 @@ public:
 		this->loading = loading;
 	}
 
+	int getSaveSlot() const { return savingMenu.getSaveSlot(); };
+	void finishSave();
+
 private:
 	// Variables
 	std::string fontString = "Assets/Fonts/Seagram_tfb/Seagram tfb.ttf";
-	int currentMenu = 0; // 0 for main menu, 1 for settings, 2 for save/load, 3 for clues, 4 for , 5 for none, 6 for 
+	int currentMenu = 0; // 0 for main menu, 1 for settings, 2 for save, 3 for inventory, 4 for load, 5 for none, 6 for quests
 	sf::Font pauseMenuFont;
 	sf::Text pauseMenuText;
 	sf::Text settingsMenuText;
 	sf::Text questMenuText;
+
+	// Different Menus
 	cluesMenuClass cluesMenu;
+	savingMenuClass savingMenu;
 
 	// Background for Pause Menu
 	std::string pauseMenuBackgroundString = "Assets/Backgrounds/AG_NotebookBackground.png";
@@ -101,8 +144,8 @@ private:
 	std::vector <s_button> pauseMenuButtonArray{
 		s_button{std::string("RESUME"),sf::Text(), Hitbox()},
 		s_button{std::string("QUIT"),sf::Text(), Hitbox()},
-		//s_button{std::string("SAVE"),sf::Text(), Hitbox()},
-		//s_button{std::string("LOAD"),sf::Text(), Hitbox()},
+		s_button{std::string("SAVE"),sf::Text(), Hitbox()},
+		s_button{std::string("LOAD"),sf::Text(), Hitbox()},
 		s_button{std::string("SETTINGS"),sf::Text(), Hitbox()}
 
 	};
@@ -129,5 +172,24 @@ private:
 	void updateButtonPositions(PlayerClass& player);
 
 };
+
+class savingCLass {
+
+public:
+	savingCLass();
+	~savingCLass();
+	void saveGame(int salveFileNum, int mapNumber, PlayerClass player);
+	void loadGame(int saveFileNum, int& mapnumber, PlayerClass& player);
+private:
+	// File paths for saving and loading
+	std::vector<std::string> saveFilePaths = {
+		"SaveFiles/SaveFile1.txt",
+		"SaveFiles/SaveFile2.txt",
+		"SaveFiles/SaveFile3.txt"
+	};
+	std::vector<std::string> saveData;
+	std::vector<std::string> loadData;
+};
+
 
 #pragma once

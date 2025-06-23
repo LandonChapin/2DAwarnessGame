@@ -92,7 +92,19 @@ void GameController::runPauseMenu() {
 	if (!isPaused) {
 		pauseMenu.setCurrentMenu(0);
 	}
-	
+
+	int pauseState = pauseMenu.checkSaving();
+	if (pauseState == 1) {
+		savingCLass save;
+		save.saveGame(pauseMenu.getSaveSlot(), currentLevel, player);
+		pauseMenu.setSaving(false);
+		pauseMenu.finishSave();
+	}
+	else if (pauseState == 2) {
+		savingCLass save;
+		save.loadGame(pauseMenu.getSaveSlot(), currentLevel, player);
+		pauseMenu.setLoading(false);
+	};
 	
 	pauseMenu.draw(window); // Draw the pause menu
 	window.display();

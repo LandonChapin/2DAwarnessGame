@@ -91,12 +91,27 @@ bool PauseMenuClass::update(sf::RenderWindow& window, PlayerClass& player) {
         }
         break;
     }
+    case 2: // Save Menu
+    {
+        saving = savingMenu.update(player, window, 1);
+        break;
+    }
 
-	case 3: // Clues Menu
+    case 3: // Clues Menu
+    {
         cluesMenu.updateCluesMenu(player, window);
         break;
 
     }
+    case 4: // Load Menu
+    { 
+        loading = savingMenu.update(player, window, 2);
+        break;
+
+    }
+    }
+
+
     for (auto& button : pauseMenuSideButtonArray) {
         updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
 
@@ -154,6 +169,12 @@ void PauseMenuClass::draw(sf::RenderWindow& window) {
         window.draw(settingsMenuText);
         break;
     }
+    case 2:
+    {
+        savingMenu.draw(window);
+
+        break;
+    }
 
     case 3:
         window.draw(pauseMenuBackgroundSprite);
@@ -161,6 +182,12 @@ void PauseMenuClass::draw(sf::RenderWindow& window) {
         cluesMenu.drawCluesMenu(window);
         break;
 
+    case 4:
+    {
+        savingMenu.draw(window);
+
+        break;
+    }
     case 6:
         window.draw(questMenuText);
         break;
@@ -220,10 +247,10 @@ void PauseMenuClass::handleQuitButtonClicked(sf::RenderWindow& window) {
     window.close();
 };
 void PauseMenuClass::handleSaveButtonClicked() {
-    saving = true;
+    currentMenu = 2;
 };
 void PauseMenuClass::handleLoadButtonClicked() {
-    loading = true;
+    currentMenu = 4;
 };
 void PauseMenuClass::handleSettingsButtonClicked() {
     // Opening Settings
@@ -255,3 +282,8 @@ int PauseMenuClass::checkSaving() {
     }
 };
 
+// Function to reset save menu
+void PauseMenuClass::finishSave() {
+    currentMenu = 0;
+    savingMenu.resetSaveMenu();
+}

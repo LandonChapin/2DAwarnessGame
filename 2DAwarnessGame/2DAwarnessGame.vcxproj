@@ -141,6 +141,8 @@
     <ClCompile Include="npcManager.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="saveMenu.cpp" />
+    <ClCompile Include="savingClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chest.h" />
