@@ -1,14 +1,14 @@
 #include "PauseMenu.h"
 
-savingCLass::savingCLass() {
+savingClass::savingClass() {
     // Constructor implementation
 }
 
-savingCLass::~savingCLass() {
+savingClass::~savingClass() {
     // Destructor implementation
 }
 
-void savingCLass::saveGame(int saveFileNum, int mapNumber, PlayerClass player) {
+void savingClass::saveGame(int saveFileNum, int mapNumber, PlayerClass& player) {
     std::ofstream saveFile(saveFilePaths[saveFileNum]);
     if (saveFile.is_open()) {
         // Save map number
@@ -42,7 +42,7 @@ void savingCLass::saveGame(int saveFileNum, int mapNumber, PlayerClass player) {
     }
 }
 
-void savingCLass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player) {
+void savingClass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player, NpcManager& npcManager) {
     std::ifstream loadFile(saveFilePaths[saveFileNum]);
     if (loadFile.is_open()) {
         std::string line;
@@ -86,6 +86,17 @@ void savingCLass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player)
 
         // Set player inventory
         player.playerInventory = loadedInventory;
+
+        for (int i = 0; i < inventorySize; ++i) {
+            if (i < loadedInventory.size()) {
+                if (player.playerInventory[i].isCollected) {
+                    npcManager.loadChest(i, true);
+                }
+                else {
+					npcManager.loadChest(i, false);
+                }
+            }
+		}
 
         loadFile.close();
         std::cout << "Game loaded successfully!" << std::endl;

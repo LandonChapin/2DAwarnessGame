@@ -42,10 +42,18 @@ void GameController::playGame() {
 					isPaused = !isPaused;
 
 				}
+				if (event.key.code == sf::Keyboard::Num1) { // Reset the game
+					currentLevel = 1;
+					world.initialize(1); // Initialize the world for level 1
+				}
+				if (event.key.code == sf::Keyboard::Num2) { // Go to level 2
+					currentLevel = 2;
+					world.initialize(2); // Initialize the world for level 2
+				}
 			}
 		}
 		if (isPaused) {
-			runPauseMenu();
+			runPauseMenu(&npcManager);
 			continue; // Skip the rest of the loop while paused
 		}
 		else { initializeLevel(currentLevel, &npcManager); }
@@ -62,15 +70,17 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			break;
 		case 1:
 			// Logic for initializing level 1
+			
 			window.clear(sf::Color::Black);
+			
 			
 			world.update(player, window); // Update the game world
 			player.update(dt, window);
 
 			world.draw(window); // Draw the game world
 			
-			npcManager ->npcUpdate(dt, window); // Update the entities
-			npcManager->npcDraw(window); // Draw the entities
+			npcManager ->npcUpdate(dt, window, level); // Update the entities
+			npcManager->npcDraw(window, level); // Draw the entities
 
 			
 			player.draw(window);
@@ -79,13 +89,35 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 
 			window.display();
 			break;
+		case 2:
+			// Logic for initializing level 2
+			
+			window.clear(sf::Color::Black);
+
+			
+			world.update(player, window); // Update the game world
+			player.update(dt, window);
+
+			world.draw(window); // Draw the game world
+
+			npcManager->npcUpdate(dt, window, level); // Update the entities
+			npcManager->npcDraw(window, level); // Draw the entities
+
+
+			player.draw(window);
+
+			world.drawForeground(window); // Draw the foreground elements of the world
+
+			window.display();
+			break;
+
 		default:
 			std::cout << "No more levels to initialize." << std::endl;
 			break;
 	}
 }
 
-void GameController::runPauseMenu() {
+void GameController::runPauseMenu(NpcManager* npcManager) {
 	// Display pause menu
 	window.clear(sf::Color::White);
 	isPaused = pauseMenu.update(window, player);
@@ -95,15 +127,16 @@ void GameController::runPauseMenu() {
 
 	int pauseState = pauseMenu.checkSaving();
 	if (pauseState == 1) {
-		savingCLass save;
+		savingClass save;
 		save.saveGame(pauseMenu.getSaveSlot(), currentLevel, player);
 		pauseMenu.setSaving(false);
 		pauseMenu.finishSave();
 	}
 	else if (pauseState == 2) {
-		savingCLass save;
-		save.loadGame(pauseMenu.getSaveSlot(), currentLevel, player);
+		savingClass save;
+		save.loadGame(pauseMenu.getSaveSlot(), currentLevel, player, *npcManager);
 		pauseMenu.setLoading(false);
+		pauseMenu.finishSave();
 	};
 	
 	pauseMenu.draw(window); // Draw the pause menu

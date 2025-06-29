@@ -15,7 +15,9 @@ public:
 
     bool detectPlayer(EntityClass& player) override; // Move this to public to make it accessible  
     
-    
+	int getInfo() const { return info; } // Getter for the info in the chest
+	void setOpen(bool open) { isOpen = open; } // Setter for the chest state
+
 private:
     sf::Texture texture;
 	sf::Texture textureOpen; // Texture for the open chest

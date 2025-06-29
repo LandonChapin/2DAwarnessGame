@@ -66,26 +66,31 @@ bool PauseMenuClass::update(sf::RenderWindow& window, PlayerClass& player) {
             updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
 
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF) && inputDelay == 0) {
                 if (button.buttonName == "RESUME" && currentMenu != 5) {
                     std::cout << "Resume button clicked!" << std::endl;
                     handleResumeButtonClicked();
+                    inputDelay = 500;
                 }
                 else if (button.buttonName == "QUIT") {
                     std::cout << "Quit button clicked!" << std::endl;
                     handleQuitButtonClicked(window);
+					inputDelay = 500;
                 }
                 else if (button.buttonName == "SAVE" && !saving) {
                     std::cout << "Save button clicked!" << std::endl;
                     handleSaveButtonClicked();
+					inputDelay = 500;
                 }
                 else if (button.buttonName == "LOAD" && !loading) {
                     std::cout << "Load button clicked!" << std::endl;
                     handleLoadButtonClicked();
+					inputDelay = 500;
                 }
                 else if (button.buttonName == "SETTINGS") {
                     std::cout << "Settings button clicked!" << std::endl;
-                    handleSettingsButtonClicked();
+                    handleSettingsButtonClicked(); 
+					inputDelay = 500;
                 }
             }
         }
@@ -116,22 +121,29 @@ bool PauseMenuClass::update(sf::RenderWindow& window, PlayerClass& player) {
         updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
 
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF) && inputDelay == 0) {
 
             if (button.buttonName == "PAUSE" && currentMenu != 0) {
                 std::cout << "Pause button clicked!" << std::endl;
                 handlePauseButtonClicked();
+				inputDelay = 500;
             }
             else if (button.buttonName == "CLUES" && currentMenu != 3) {
                 std::cout << "Inventory button clicked!" << std::endl;
                 handleInventoryButtonClicked();
+				inputDelay = 500;
             }
             else if (button.buttonName == "QUESTS" && currentMenu != 6) {
                 std::cout << "Quests button clicked!" << std::endl;
                 handleQuestButtonClicked();
+				inputDelay = 500;
             }
         }
     }
+	// Update input delay
+    if (inputDelay > 0) {
+        inputDelay -= 1; // Decrease the delay
+	}
 
     return currentMenu != 5;
 }
@@ -171,6 +183,8 @@ void PauseMenuClass::draw(sf::RenderWindow& window) {
     }
     case 2:
     {
+		window.draw(pauseMenuBackgroundSprite);
+
         savingMenu.draw(window);
 
         break;
@@ -184,6 +198,8 @@ void PauseMenuClass::draw(sf::RenderWindow& window) {
 
     case 4:
     {
+		window.draw(pauseMenuBackgroundSprite);
+
         savingMenu.draw(window);
 
         break;
@@ -286,4 +302,6 @@ int PauseMenuClass::checkSaving() {
 void PauseMenuClass::finishSave() {
     currentMenu = 0;
     savingMenu.resetSaveMenu();
+	saving = false;
+	loading = false;
 }

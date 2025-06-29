@@ -1,16 +1,13 @@
 #include <SFML/Graphics.hpp>  
 #include <vector>  
 #include "Player.h"  
+#include "npcManager.h"
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "s_Button.h"
 
-// Structure for Buttons
-struct s_button {
-	std::string buttonName;
-	sf::Text buttonText;
-	Hitbox buttonHitbox;
-};
+
 
 // Menu For Saving and Loading the game
 class savingMenuClass {
@@ -156,6 +153,7 @@ private:
 		//s_button{std::string("QUESTS"), sf::Text(), Hitbox()}
 	};
 
+	int inputDelay = 0; // Delay for input
 
 	void setupButton(sf::Text& button, const std::string& text, int charSize, sf::Color color, float x, float y);
 	void updateButtonHover(sf::Text& button, Hitbox& hitbox, const sf::Vector2f& mousePos);
@@ -173,13 +171,14 @@ private:
 
 };
 
-class savingCLass {
+class savingClass {
+
 
 public:
-	savingCLass();
-	~savingCLass();
-	void saveGame(int salveFileNum, int mapNumber, PlayerClass player);
-	void loadGame(int saveFileNum, int& mapnumber, PlayerClass& player);
+	savingClass();
+	~savingClass();
+	void saveGame(int salveFileNum, int mapNumber, PlayerClass& player);
+	void loadGame(int saveFileNum, int& mapnumber, PlayerClass& player, NpcManager& npcManager);
 private:
 	// File paths for saving and loading
 	std::vector<std::string> saveFilePaths = {

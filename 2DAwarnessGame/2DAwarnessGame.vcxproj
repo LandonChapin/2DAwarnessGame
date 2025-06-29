@@ -141,6 +141,8 @@
     <ClCompile Include="npcManager.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="questionChest.cpp" />
+    <ClCompile Include="questionMenu.cpp" />
     <ClCompile Include="saveMenu.cpp" />
     <ClCompile Include="savingClass.cpp" />
   </ItemGroup>
@@ -155,6 +157,9 @@
     <ClInclude Include="npcManager.h" />
     <ClInclude Include="pauseMenu.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="questionChest.h" />
+    <ClInclude Include="questionMenu.h" />
+    <ClInclude Include="s_Button.h" />
     <ClInclude Include="s_Item.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

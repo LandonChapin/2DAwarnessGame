@@ -1,19 +1,31 @@
 MapNumber: 1
-PlayerX: 381
+PlayerX: 2978
 PlayerY: 645
 InventorySize: 5
 ItemQuestion: WHAT IS AIR POLLUTION?
 ItemDescription: Air pollution is when harmful gases, dust, 
+and other particles are present in the air we breathe.
 ItemCollected: false
 ItemQuestion: WHERE DOES AIR POLLUSTION COME FROM?
 ItemDescription: Air pollution can originate from various sources,
-ItemCollected: false
+ including cars, factories, power plants, wildfires, and volcanic eruptions.
+ItemCollected: true
 ItemQuestion: WHY IS AIR POLLUTION BAD?
 ItemDescription: Air pollution can harm our health, especially for children.
+ It can cause respiratory problems, such as asthma and bronchitis,
+ as well as eye irritation, headaches, and nausea.
 ItemCollected: false
 ItemQuestion: HOW DOES AIR POLUTION AFFECT CHILDREN?
 ItemDescription: Children are more vulnerable to the effects of air pollution
-ItemCollected: false
+ than adults because their lungs are still developing.
+ Air pollution can damage their lungs
+ and increase their risk of respiratory diseases.
+ItemCollected: true
 ItemQuestion: WHAT CAN WE DO ABOUT AIR POLLUTION?
 ItemDescription: We can help reduce air pollution by:
+Walking, biking, or taking public transportation instead of driving
+Using energy - efficient appliances
+Recycling and composting
+Planting trees
+Supporting policies that promote clean energy
 ItemCollected: false

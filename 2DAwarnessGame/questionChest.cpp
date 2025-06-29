@@ -1,7 +1,7 @@
-#include "chest.h"
+#include "questionChest.h"
 
 
-Chest::Chest(std::string texturePath, std::string texturePathOpen, int x, int y, float hitboxX, float hitboxY, int xTexture, int yTexture, PlayerClass* playerReference, int info) {
+QuestionChest::QuestionChest(std::string texturePath, std::string texturePathOpen, int x, int y, float hitboxX, float hitboxY, int xTexture, int yTexture, PlayerClass* playerReference, int info) {
 	// Load the texture from the file
 	if (!texture.loadFromFile(texturePath)) {
 		std::cerr << "Error loading texture! " << texturePath << std::endl;
@@ -31,9 +31,12 @@ Chest::Chest(std::string texturePath, std::string texturePathOpen, int x, int y,
 	player = playerReference; // Initialize the player reference
 
 	this->info = info; // Store the info value
+
+	// Initialize the question menu
+	questionMenu.initializeMenu(info, sprite.getPosition());
 }
 
-bool Chest::detectPlayer(EntityClass& player) {
+bool QuestionChest::detectPlayer(EntityClass& player) {
 	// Check for collision with the player  
 	if (hitbox.getBounds().intersects(player.getGlobalBounds())) {
 		// Handle collision with the player  
@@ -46,7 +49,7 @@ bool Chest::detectPlayer(EntityClass& player) {
 	}
 }
 
-void Chest::update(float dt, sf::RenderWindow& window) {
+void QuestionChest::update(float dt, sf::RenderWindow& window) {
 	// Update the hitbox position to match the sprite position  
 	hitbox.setPosition(sf::Vector2f(sprite.getPosition()));
 	if (player) {
@@ -55,9 +58,8 @@ void Chest::update(float dt, sf::RenderWindow& window) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !isOpen) {
 				// Interact
 				std::cout << "Interacting with chest!" << std::endl;
-				isOpen = true;
-				// Logic for whatever happens when they open a chest
-				sprite.setTexture(textureOpen);
+				
+				
 				if (player) {
 					PlayerClass* playerCast = dynamic_cast<PlayerClass*>(player);
 					if (playerCast) {
@@ -66,6 +68,18 @@ void Chest::update(float dt, sf::RenderWindow& window) {
 					else {
 						std::cerr << "Error: player is not of type PlayerClass!" << std::endl;
 					}
+				}
+				// Open the question menu
+				questionMenu.setActive(true);
+				
+			}
+			if (questionMenu.getActive() && !isOpen) {
+				
+				isOpen = questionMenu.update(window, sprite.getPosition()); // Update the question menu if it's active
+				if (isOpen) {
+					// Logic for whatever happens when they open a chest
+					sprite.setTexture(textureOpen);
+					questionMenu.setActive(false); // Deactivate the question menu after answering
 				}
 			}
 		}
@@ -77,14 +91,24 @@ void Chest::update(float dt, sf::RenderWindow& window) {
 }
 
 
-void Chest::draw(sf::RenderWindow& window) {
+void QuestionChest::draw(sf::RenderWindow& window) {
 	// Draw the object
 	window.draw(sprite);
-	
+
 
 	if (isColliding && !isOpen) {
-		window.draw(text); // Draw the text when colliding with the player
+		
 		// Draw the hitbox
 		//hitbox.draw(window);
+		if (questionMenu.getActive()) {
+			
+			questionMenu.draw(window); // Update the question menu if it's active
+
+		}
+		else {
+			window.draw(text); // Draw the text when colliding with the player
+		}
 	}
+
+	
 }

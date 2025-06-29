@@ -5,10 +5,13 @@
 class NpcManager {
 public:
 	NpcManager(PlayerClass* player);
-	void npcUpdate(float dt, sf::RenderWindow& window);
-	void npcDraw(sf::RenderWindow& window);
+	void npcUpdate(float dt, sf::RenderWindow& window, int levelNum);
+	void npcDraw(sf::RenderWindow& window, int levelNum);
+
+	void loadChest(int infoNum, bool open); // Load a chest with the given info number
+
 private:
-	std::vector<EntityClass*> npcs = {};
+	std::vector <std::vector<EntityClass*>> npcs = {};
 };
 
 

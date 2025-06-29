@@ -4,7 +4,8 @@
 PlayWorld::PlayWorld(int world_num) {
 	switch (world_num) {
 	case 1:
-		// Load textures for area 1 (City in Moths world)
+	{
+		// Load textures for area 1 (City Park: Day)
 		mapFiles = {
 			"Assets/Backgrounds/AG_BackgroundSky.png",
 			"Assets/Backgrounds/Park/AG_Ground_Park.png",
@@ -16,7 +17,22 @@ PlayWorld::PlayWorld(int world_num) {
 			"Assets/Backgrounds/Park/AG_Background_Park6.png",
 		};
 		break;
-
+	}
+	case 2:
+	{
+		// Load textures for area 2 (City Park: Night)
+		mapFiles = {
+			"Assets/Backgrounds/AG_BackgroundSky.png",
+			"Assets/Backgrounds/Park/AG_Ground_Park.png",
+			"Assets/Backgrounds/Park/AG_Background_Park1_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park2_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park3_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park5.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night.png",
+		};
+		break;
+	}
 	}
 	// Load the textures
 	loadTextures(mapFiles);
@@ -162,7 +178,8 @@ void PlayWorld::drawForeground(sf::RenderWindow& window) {
 void PlayWorld::initialize(int episodeNum) {
 	switch (episodeNum) {
 	case 1:
-		// Load textures for area 1 (City in Moths world)
+	{
+		// Load textures for area 1 (City Park: Day)
 		mapFiles = {
 			"Assets/Backgrounds/AG_BackgroundSky.png",
 			"Assets/Backgrounds/Park/AG_Ground_Park.png",
@@ -174,7 +191,22 @@ void PlayWorld::initialize(int episodeNum) {
 			"Assets/Backgrounds/Park/AG_Background_ParkForeground.png",
 		};
 		break;
-
+	}
+	case 2:
+	{
+		// Load textures for area 2 (City Park: Night)
+		mapFiles = {
+			"Assets/Backgrounds/AG_BackgroundSky_Night.png",
+			"Assets/Backgrounds/Park/AG_Ground_Park.png",
+			"Assets/Backgrounds/Park/AG_Background_Park1_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park2_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park3_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park5.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night.png",
+		};
+		break;
+	}
 	}
 	// Load the textures
 	loadTextures(mapFiles);

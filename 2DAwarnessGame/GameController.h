@@ -29,7 +29,7 @@ private:
 
 	PauseMenuClass pauseMenu; // Instance of the pause menu class
 
-	void runPauseMenu();
+	void runPauseMenu(NpcManager* npcManager);
 	void initializeLevel(int level, NpcManager* npcManager);
 };
 

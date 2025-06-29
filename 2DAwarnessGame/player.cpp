@@ -79,13 +79,13 @@ void PlayerClass::handleInput(float dt)
 	sf::Vector2f movement(0, 0);
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && getPosition().x > 300) {
 
 		direction = -1; // Move left
 		movement.x -= speed * dt; // Move left
 		moved = true; // Set the moved flag to true
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && getPosition().x < 3695 ) {
 		direction = 1; // Move right
 		movement.x += speed * dt; // Move right
 		moved = true; // Set the moved flag to true
