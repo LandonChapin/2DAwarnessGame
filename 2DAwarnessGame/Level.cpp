@@ -12,9 +12,27 @@ PlayWorld::PlayWorld(int world_num) {
 			"Assets/Backgrounds/Park/AG_Background_Park1.png",
 			"Assets/Backgrounds/Park/AG_Background_Park2.png",
 			"Assets/Backgrounds/Park/AG_Background_Park3.png",
-			"Assets/Backgrounds/Park/AG_Background_Park4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_1.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_2.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_3.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_5.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_6.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_7.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_8.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_9.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_10.png",
 			"Assets/Backgrounds/Park/AG_Background_Park5.png",
-			"Assets/Backgrounds/Park/AG_Background_Park6.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_1.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_2.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_3.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_4.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_5.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_6.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_7.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_8.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_9.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_10.png",
 		};
 		break;
 	}
@@ -22,14 +40,66 @@ PlayWorld::PlayWorld(int world_num) {
 	{
 		// Load textures for area 2 (City Park: Night)
 		mapFiles = {
-			"Assets/Backgrounds/AG_BackgroundSky.png",
+			"Assets/Backgrounds/AG_BackgroundSkyNight.png",
 			"Assets/Backgrounds/Park/AG_Ground_Park.png",
-			"Assets/Backgrounds/Park/AG_Background_Park1_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park1.png",
 			"Assets/Backgrounds/Park/AG_Background_Park2_Night.png",
 			"Assets/Backgrounds/Park/AG_Background_Park3_Night.png",
-			"Assets/Backgrounds/Park/AG_Background_Park4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_1.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_2.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_3.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_5.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_6.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_7.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_8.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_9.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_10.png",
 			"Assets/Backgrounds/Park/AG_Background_Park5.png",
-			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_1.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_2.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_3.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_4.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_5.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_6.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_7.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_8.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_9.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_10.png",
+
+		};
+		break;
+	}
+	case 3:
+	{
+		// Load textures for area 3 (Bridge: Day)
+		mapFiles = {
+			"Assets/Backgrounds/AG_BackgroundSky.png",
+		"Assets/Backgrounds/Bridge/AG_Ground_Bridge.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day2.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day3.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_2.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_3.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_4.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_5.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_6.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_7.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_8.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_9.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_10.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day5.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_2.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_3.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_4.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_5.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_6.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_7.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_8.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_9.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_10.png",
 		};
 		break;
 	}
@@ -57,16 +127,16 @@ void PlayWorld::loadTextures(const std::vector<std::string>& textureFiles) {
 	if (!background3Texture.loadFromFile(textureFiles[4])) {
 		std::cerr << "Error loading background 3 texture!" << std::endl;
 	}
-	if (!background4Texture.loadFromFile(textureFiles[5])) {
+	if (!background4Texture.loadFromFile(textureFiles[5 + currentFrame])) {
 		std::cerr << "Error loading background 4 texture!" << std::endl;
 	}
-	if (!background5Texture.loadFromFile(textureFiles[6])) {
+	if (!background5Texture.loadFromFile(textureFiles[15])) {
 		std::cerr << "Error loading background 5 texture!" << std::endl;
 	}
 	if (!groundTexture.loadFromFile(textureFiles[1])) {
 		std::cerr << "Error loading ground texture!" << std::endl;
 	}
-	if (!foregroundTexture.loadFromFile(textureFiles[7])) {
+	if (!foregroundTexture.loadFromFile(textureFiles[16 + currentFrame])) {
 		std::cerr << "Error loading foreground texture!" << std::endl;
 	}
 
@@ -91,7 +161,7 @@ void PlayWorld::loadTextures(const std::vector<std::string>& textureFiles) {
 	foregroundSprite.setScale(10, 10);
 }
 
-void PlayWorld::update(PlayerClass player, sf::RenderWindow& window) {
+void PlayWorld::update(PlayerClass player, sf::RenderWindow& window, float dt) {
 	sf::Vector2f playerPosition = player.getPosition();
 	sf::View currentView = window.getView();
 	currentView.setCenter(playerPosition);
@@ -118,6 +188,9 @@ void PlayWorld::update(PlayerClass player, sf::RenderWindow& window) {
 	// Ground and foreground move with the view (no parallax)
 	groundSprite.setPosition(-500, 0);
 	foregroundSprite.setPosition(-500, 0);
+
+	// Manage background animations
+	updateAnimation(dt);
 
 };
 
@@ -186,9 +259,27 @@ void PlayWorld::initialize(int episodeNum) {
 			"Assets/Backgrounds/Park/AG_Background_Park1.png",
 			"Assets/Backgrounds/Park/AG_Background_Park2.png",
 			"Assets/Backgrounds/Park/AG_Background_Park3.png",
-			"Assets/Backgrounds/Park/AG_Background_Park4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_1.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_2.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_3.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_5.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_6.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_7.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_8.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_9.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_10.png",
 			"Assets/Backgrounds/Park/AG_Background_Park5.png",
-			"Assets/Backgrounds/Park/AG_Background_ParkForeground.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_1.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_2.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_3.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_4.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_5.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_6.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_7.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_8.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_9.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_10.png",
 		};
 		break;
 	}
@@ -196,14 +287,66 @@ void PlayWorld::initialize(int episodeNum) {
 	{
 		// Load textures for area 2 (City Park: Night)
 		mapFiles = {
-			"Assets/Backgrounds/AG_BackgroundSky_Night.png",
+			"Assets/Backgrounds/AG_BackgroundSkyNight.png",
 			"Assets/Backgrounds/Park/AG_Ground_Park.png",
-			"Assets/Backgrounds/Park/AG_Background_Park1_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_Park1.png",
 			"Assets/Backgrounds/Park/AG_Background_Park2_Night.png",
 			"Assets/Backgrounds/Park/AG_Background_Park3_Night.png",
-			"Assets/Backgrounds/Park/AG_Background_Park4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_1.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_2.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_3.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_4.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_5.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_6.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_7.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_8.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_9.png",
+			"Assets/Backgrounds/Park/AG_Background_Park4_Night_10.png",
 			"Assets/Backgrounds/Park/AG_Background_Park5.png",
-			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_1.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_2.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_3.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_4.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_5.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_6.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_7.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_8.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_9.png",
+			"Assets/Backgrounds/Park/AG_Background_ParkForeground_Night_10.png",
+
+		};
+		break;
+	}
+	case 3:
+	{
+		// Load textures for area 3 (Bridge: Day)
+		mapFiles = {
+			"Assets/Backgrounds/AG_BackgroundSky.png",
+		"Assets/Backgrounds/Bridge/AG_Ground_Bridge.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day2.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day3.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_2.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_3.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_4.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_5.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_6.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_7.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_8.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_9.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day4_10.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day5.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_2.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_3.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_4.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_5.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_6.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_7.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_8.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_9.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_DayForeground_10.png",
 		};
 		break;
 	}
@@ -211,3 +354,30 @@ void PlayWorld::initialize(int episodeNum) {
 	// Load the textures
 	loadTextures(mapFiles);
 };
+
+void PlayWorld::updateAnimation(float dt) {
+	// Update the animation frame based on the time delta
+	frameTimer += (dt * 1000); // Convert dt to milliseconds
+	if (frameTimer >= 10000) { // Change frame
+		if (currentFrame >= frameCount - 1) {
+			currentFrame = 0; // Reset to first frame if at the end
+		}
+		else {
+			currentFrame = (currentFrame + 1); // Loop through frames
+		}
+		frameTimer = 0; // Reset timer
+		std::cout << "frame update" << currentFrame << std::endl;
+
+		// Set the current texture for the sprite based on the current frame
+		if (!background4Texture.loadFromFile(mapFiles[5 + currentFrame])) {
+			std::cerr << "Error loading background 4 texture!" << std::endl;
+		};
+		if (!foregroundTexture.loadFromFile(mapFiles[16 + currentFrame])) {
+			std::cerr << "Error loading foreground texture!" << std::endl;
+		};
+
+		foregroundSprite.setTexture(foregroundTexture);
+		background4Sprite.setTexture(background4Texture);
+	}
+
+}

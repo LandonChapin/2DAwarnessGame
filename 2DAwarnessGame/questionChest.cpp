@@ -1,7 +1,7 @@
 #include "questionChest.h"
 
 
-QuestionChest::QuestionChest(std::string texturePath, std::string texturePathOpen, int x, int y, float hitboxX, float hitboxY, int xTexture, int yTexture, PlayerClass* playerReference, int info) {
+QuestionChest::QuestionChest(std::string texturePath, std::string texturePathOpen, int x, int y, float hitboxX, float hitboxY, int xTexture, int yTexture, PlayerClass* playerReference, int info,int pInfo) {
 	// Load the texture from the file
 	if (!texture.loadFromFile(texturePath)) {
 		std::cerr << "Error loading texture! " << texturePath << std::endl;
@@ -31,6 +31,7 @@ QuestionChest::QuestionChest(std::string texturePath, std::string texturePathOpe
 	player = playerReference; // Initialize the player reference
 
 	this->info = info; // Store the info value
+	this->pInfo = pInfo; // Store the player info value
 
 	// Initialize the question menu
 	questionMenu.initializeMenu(info, sprite.getPosition());
@@ -63,7 +64,7 @@ void QuestionChest::update(float dt, sf::RenderWindow& window) {
 				if (player) {
 					PlayerClass* playerCast = dynamic_cast<PlayerClass*>(player);
 					if (playerCast) {
-						playerCast->playerInventory[info].isCollected = true; // Add the item to the player's inventory
+						playerCast->playerInventory[pInfo].isCollected = true; // Add the item to the player's inventory
 					}
 					else {
 						std::cerr << "Error: player is not of type PlayerClass!" << std::endl;

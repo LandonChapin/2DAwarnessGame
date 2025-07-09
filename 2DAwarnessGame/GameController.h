@@ -5,7 +5,9 @@
 #include "entity.h"
 #include "npcManager.h"
 #include "pauseMenu.h"
+#include "MainMenu.h"
 #include "Level.h"
+#include "musicPlayer.h"
 
 // Header file for the GameController class
 class GameController {
@@ -28,6 +30,9 @@ private:
 	PlayWorld world; // Instance of the PlayWorld class
 
 	PauseMenuClass pauseMenu; // Instance of the pause menu class
+	MainMenuClass mainMenu; // Instance of the main menu class
+
+	MusicPlayer musicPlayer; // Instance of the music player class
 
 	void runPauseMenu(NpcManager* npcManager);
 	void initializeLevel(int level, NpcManager* npcManager);

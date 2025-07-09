@@ -2,7 +2,7 @@
 
 PauseMenuClass::PauseMenuClass() {
     // Load the font
-    if (!pauseMenuFont.loadFromFile("Assets/Fonts/Seagram_tfb/Seagram tfb.ttf")) {
+    if (!pauseMenuFont.loadFromFile("Assets/Fonts/ikan-besar_tfb/IkanBesar tfb.ttf")) {
         std::cerr << "Error loading font!" << std::endl;
     }
 
@@ -114,6 +114,11 @@ bool PauseMenuClass::update(sf::RenderWindow& window, PlayerClass& player) {
         break;
 
     }
+    case 6: // Level Selector Menu
+    {
+        levelSelectorMenu.update(window, player);
+        break;
+    }
     }
 
 
@@ -133,9 +138,9 @@ bool PauseMenuClass::update(sf::RenderWindow& window, PlayerClass& player) {
                 handleInventoryButtonClicked();
 				inputDelay = 500;
             }
-            else if (button.buttonName == "QUESTS" && currentMenu != 6) {
-                std::cout << "Quests button clicked!" << std::endl;
-                handleQuestButtonClicked();
+            else if (button.buttonName == "LEVEL" && currentMenu != 6) {
+                std::cout << "Level button clicked!" << std::endl;
+                handleLevelButtonClicked();
 				inputDelay = 500;
             }
         }
@@ -205,8 +210,12 @@ void PauseMenuClass::draw(sf::RenderWindow& window) {
         break;
     }
     case 6:
-        window.draw(questMenuText);
+    {
+        window.draw(pauseMenuBackgroundSprite);
+
+        levelSelectorMenu.draw(window);
         break;
+    }
     }
 
 
@@ -280,8 +289,8 @@ void PauseMenuClass::handleInventoryButtonClicked() {
     // Opening Inventory Menu
     currentMenu = 3;
 };
-void PauseMenuClass::handleQuestButtonClicked() {
-    // Opening Quest Menu
+void PauseMenuClass::handleLevelButtonClicked() {
+    // Opening Level Menu
     currentMenu = 6;
 }
 
@@ -305,3 +314,10 @@ void PauseMenuClass::finishSave() {
 	saving = false;
 	loading = false;
 }
+
+int PauseMenuClass::getLevelSelectorLevel(){
+    int selectedLevel = levelSelectorMenu.getSelectedLevel();
+
+    levelSelectorMenu.resetLevelSelectorMenu();
+    return selectedLevel;
+};

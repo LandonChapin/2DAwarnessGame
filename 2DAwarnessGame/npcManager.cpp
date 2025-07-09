@@ -15,11 +15,15 @@ NpcManager::NpcManager(PlayerClass* player) {
 		},
 
 		// Level 2 NPCs
-		{new QuestionChest("Assets/NPCs/Chests/Chest1.png", "Assets/NPCs/Chests/Chest2.png", 600, 665, 150.f, 150.f, 50, 50, player, 0),
-		new QuestionChest("Assets/NPCs/Chests/Chest1.png", "Assets/NPCs/Chests/Chest2.png", 2200, 665, 150.f, 150.f, 50, 50, player, 1),
-		new QuestionChest("Assets/NPCs/Chests/Chest1.png", "Assets/NPCs/Chests/Chest2.png", 3200, 665, 150.f, 150.f, 50, 50, player, 2),
+		{new QuestionChest("Assets/NPCs/Chests/Chest1.png", "Assets/NPCs/Chests/Chest2.png", 600, 665, 150.f, 150.f, 50, 50, player, 0, 5),
+		new QuestionChest("Assets/NPCs/Chests/Chest1.png", "Assets/NPCs/Chests/Chest2.png", 2200, 665, 150.f, 150.f, 50, 50, player, 1, 6),
+		new QuestionChest("Assets/NPCs/Chests/Chest1.png", "Assets/NPCs/Chests/Chest2.png", 3200, 665, 150.f, 150.f, 50, 50, player, 2, 7),
 		},
 
+		// Level 3 NPCs
+		{
+			new Chest("", "", 600, 665, 150.f, 150.f, 50, 50, player, 8),
+		},
 		
 	};
 };

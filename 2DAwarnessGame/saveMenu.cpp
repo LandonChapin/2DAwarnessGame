@@ -1,7 +1,7 @@
 #include "pauseMenu.h"
 
 savingMenuClass::savingMenuClass() {
-	if (!font.loadFromFile("Assets/Fonts/Seagram_tfb/Seagram tfb.ttf")) {
+	if (!font.loadFromFile("Assets/Fonts/ikan-besar_tfb/IkanBesar tfb.ttf")) {
 		std::cerr << "Failed to load inventory font!" << std::endl;
 	}
 

@@ -9,7 +9,7 @@ public:
 	PlayWorld() {};
 	void loadTextures(const std::vector<std::string>& textureFiles);
 	void scaleTextures(sf::RenderWindow& window);
-	void update(PlayerClass player, sf::RenderWindow& window);
+	void update(PlayerClass player, sf::RenderWindow& window, float dt);
 	void draw(sf::RenderWindow& window);
 	void drawForeground(sf::RenderWindow& window);
 	void initialize(int episodeNum);
@@ -37,5 +37,11 @@ private:
 	int world_num = 1; // The current world number
 
 	float PARALLAX_FACTORS[5] = { 0.8f, 0.65f, 0.5f, 0.35f, 0.2f };
+
+	int currentFrame = 0; // Current frame for animation
+	int frameCount = 9; // Total number of frames in the animation
+	float frameTimer = 0; // Delay between frames
+
+	void updateAnimation(float dt);
 };
 #pragma once

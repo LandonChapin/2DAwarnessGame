@@ -10,8 +10,8 @@ public:
 	void update(float dt, sf::RenderWindow& window) override;
 
 	// Constructor to initialize the chest with a texture, position, and hitbox
-	// Parameters: texturePath for the closed chesr - path to the open chest texture, x, y - position, hitboxX, hitboxY - size of the hitbox, player reference, int reperesenting the info in the chest
-	QuestionChest(std::string texturePath, std::string texturePathOpen, int x, int y, float hitboxX, float hitboxY, int xTexture, int yTexture, PlayerClass* playerRef, int info);
+	// Parameters: texturePath for the closed chesr - path to the open chest texture, x, y - position, hitboxX, hitboxY - size of the hitbox, player reference, int reperesenting the info in the chest, int repersenting where the info is located in the player inventory
+	QuestionChest(std::string texturePath, std::string texturePathOpen, int x, int y, float hitboxX, float hitboxY, int xTexture, int yTexture, PlayerClass* playerRef, int info, int pInfo);
 
 	EntityClass* player = nullptr; // Pointer to the player object  
 
@@ -31,6 +31,7 @@ private:
 	sf::Text text; // Text to display when player is near the chest
 
 	int info; // Information in the chest
+	int pInfo; // Player info, used to check if the player has already interacted with this chest
 
 	QuestionMenu questionMenu; // Question menu to display when the chest is opened
 

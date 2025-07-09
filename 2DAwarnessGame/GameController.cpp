@@ -3,12 +3,13 @@
 
 GameController::GameController(){
 	// Initialize the game controller
-	currentLevel = 1;
+	currentLevel = 0;
 	window.create(sf::VideoMode(1600, 900), "2D Awareness Game");
 	isPaused = false;
 	dt = 0.1f;
 	player = PlayerClass("Assets/Player/AG_Player.png", 10); // Assuming Player is a class that handles player logic
 	pauseMenu.setCurrentMenu(0); // Set the current menu to 0 (Main Menu)
+	mainMenu.initialize(); // Set the current menu to 0 (Main Menu)
 	
 	background = sf::RectangleShape(sf::Vector2f(5000, 1500));
 	background.setFillColor(sf::Color::Blue);
@@ -50,6 +51,10 @@ void GameController::playGame() {
 					currentLevel = 2;
 					world.initialize(2); // Initialize the world for level 2
 				}
+				if (event.key.code == sf::Keyboard::Num3) { // Go to level 3
+					currentLevel = 3;
+					world.initialize(3); // Initialize the world for level 3
+				}
 			}
 		}
 		if (isPaused) {
@@ -66,7 +71,16 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 	switch (level) {
 		case 0:
 			// Logic for initializing level 0
-			std::cout << "Running Main Menu" << std::endl;
+			window.clear(sf::Color::Black);
+
+			currentLevel = mainMenu.update(window); // Update the main menu
+			
+
+			mainMenu.draw(window); // Draw the main menu
+
+			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
+
+			window.display(); // Display the main menu
 			break;
 		case 1:
 			// Logic for initializing level 1
@@ -74,7 +88,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			window.clear(sf::Color::Black);
 			
 			
-			world.update(player, window); // Update the game world
+			world.update(player, window, dt); // Update the game world
 			player.update(dt, window);
 
 			world.draw(window); // Draw the game world
@@ -87,6 +101,8 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 
 			world.drawForeground(window); // Draw the foreground elements of the world
 
+			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
+
 			window.display();
 			break;
 		case 2:
@@ -95,20 +111,45 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			window.clear(sf::Color::Black);
 
 			
-			world.update(player, window); // Update the game world
+			world.update(player, window, dt); // Update the game world
 			player.update(dt, window);
 
 			world.draw(window); // Draw the game world
 
 			npcManager->npcUpdate(dt, window, level); // Update the entities
-			npcManager->npcDraw(window, level); // Draw the entities
+			
 
 
 			player.draw(window);
 
 			world.drawForeground(window); // Draw the foreground elements of the world
+			npcManager->npcDraw(window, level); // Draw the entities
+
+			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
 
 			window.display();
+			break;
+
+		case 3:
+			// Logic for initializing level 3
+			
+			window.clear(sf::Color::Black);
+			
+			world.update(player, window, dt); // Update the game world
+			player.update(dt, window);
+
+			npcManager->npcUpdate(dt, window, level); // Update the entities
+
+			world.draw(window); // Draw the game world
+			player.draw(window);
+
+			npcManager->npcDraw(window, level); // Draw the entities
+			world.drawForeground(window); // Draw the foreground elements of the world
+
+			
+			
+			window.display(); // Display the game world
+
 			break;
 
 		default:
@@ -137,6 +178,17 @@ void GameController::runPauseMenu(NpcManager* npcManager) {
 		save.loadGame(pauseMenu.getSaveSlot(), currentLevel, player, *npcManager);
 		pauseMenu.setLoading(false);
 		pauseMenu.finishSave();
+	}
+
+	pauseState = pauseMenu.getCurrentMenu();
+	if (pauseState == 6) {
+		int selectedLevel = pauseMenu.getLevelSelectorLevel();
+		if (selectedLevel > 0) {
+			currentLevel = selectedLevel;
+			std::cout << "Selected Level: " << currentLevel << std::endl;
+			world.initialize(currentLevel); // Reinitialize the world for the selected level
+			pauseMenu.setCurrentMenu(0); // Go back to the main menu
+		}
 	};
 	
 	pauseMenu.draw(window); // Draw the pause menu

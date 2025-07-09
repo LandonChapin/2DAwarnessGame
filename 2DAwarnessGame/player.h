@@ -36,7 +36,12 @@ public:
 		{"WHERE DOES AIR POLLUSTION COME FROM?", "Air pollution can originate from various sources,\n including cars, factories, power plants, wildfires, and volcanic eruptions.", false},
 		{"WHY IS AIR POLLUTION BAD?", "Air pollution can harm our health, especially for children.\n It can cause respiratory problems, such as asthma and bronchitis,\n as well as eye irritation, headaches, and nausea.", false},
 		{"HOW DOES AIR POLUTION AFFECT CHILDREN?", "Children are more vulnerable to the effects of air pollution\n than adults because their lungs are still developing.\n Air pollution can damage their lungs\n and increase their risk of respiratory diseases.", false},
-		{"WHAT CAN WE DO ABOUT AIR POLLUTION?", "We can help reduce air pollution by:\nWalking, biking, or taking public transportation instead of driving\nUsing energy - efficient appliances\nRecycling and composting\nPlanting trees\nSupporting policies that promote clean energy", false}
+		{"WHAT CAN WE DO ABOUT AIR POLLUTION?", "We can help reduce air pollution by:\nWalking, biking, or taking public transportation instead of driving\nUsing energy - efficient appliances\nRecycling and composting\nPlanting trees\nSupporting policies that promote clean energy", false},
+		{"test", "test", false},
+		{"test", "test", false},
+		{"test", "test", false},
+		{"", "Air pollution in cities is primarily caused\n by a combination of human activities, including transportation,\n industrial emissions, and construction,\na as well as natural factors like weather patterns.\n These sources release pollutants like particulate matter,\n nitrogen oxides, and sulfur dioxide,\n which can lead to smog, respiratory problems, and other health issues. ", false}
+
 	};
 private:
 	// Items that the player has

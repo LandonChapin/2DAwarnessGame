@@ -2,7 +2,7 @@
 
 
 cluesMenuClass::cluesMenuClass() {
-	if (!font.loadFromFile("Assets/Fonts/Seagram_tfb/Seagram tfb.ttf")) {
+	if (!font.loadFromFile("Assets/Fonts/ikan-besar_tfb/IkanBesar tfb.ttf")) {
 		std::cerr << "Failed to load inventory font!" << std::endl;
 	}
 
@@ -21,7 +21,7 @@ void cluesMenuClass::setupText(sf::Text& text, const std::string& str, int size,
 	text.setCharacterSize(size);
 	text.setFillColor(color);
 	text.setPosition(x, y);
-	text.setLineSpacing(1.75f);
+	text.setLineSpacing(2.2f);
 }
 
 void cluesMenuClass::updateButtonHover(sf::Text& button, Hitbox& hitbox, const sf::Vector2f& mousePos) {
@@ -49,12 +49,12 @@ void cluesMenuClass::updateCluesMenu(PlayerClass& player, sf::RenderWindow& wind
 			if (button.buttonName == "NEXT" && inputDelay == 0) {
 				std::cout << "Next button clicked!" << std::endl;
 				handleNextButtonClicked(player);
-				inputDelay = 300; // Delay to prevent multiple clicks
+				inputDelay = 500; // Delay to prevent multiple clicks
 			}
 			else if (button.buttonName == "BACK" && inputDelay == 0) {
 				std::cout << "Back button clicked!" << std::endl;
 				handleBackButtonClicked(player);
-				inputDelay = 300; // Delay to prevent multiple clicks
+				inputDelay = 500; // Delay to prevent multiple clicks
 			}
 			
 		}
@@ -111,4 +111,34 @@ void cluesMenuClass::setupButton(sf::Text& button, const std::string& text, int 
 		textBounds.top + textBounds.height / 2.0f);
 
 	button.setPosition(x, y);
+}
+
+void cluesMenuClass::handleNextButtonClicked(PlayerClass& player) {
+	{
+		if (currentItemIndex < player.getPlayerInventory().size() - 1) {
+			currentItemIndex++;
+			// Skip if next item is "test"
+			if (player.getPlayerInventory()[currentItemIndex].Question == "test") {
+				currentItemIndex++;
+			}
+			else {
+				selectedItem = &player.getPlayerInventory()[currentItemIndex];
+			}
+		}
+	}
+}
+
+void cluesMenuClass::handleBackButtonClicked(PlayerClass& player) {
+	{
+		if (currentItemIndex > 0) {
+			currentItemIndex--;
+			// Skip if next item is "test"
+			if (player.getPlayerInventory()[currentItemIndex].Question == "test") {
+				currentItemIndex--;
+			}
+			else {
+				selectedItem = &player.getPlayerInventory()[currentItemIndex];
+			}
+		}
+	}
 }
