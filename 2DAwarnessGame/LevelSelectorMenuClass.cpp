@@ -14,6 +14,7 @@ LevelSelectorMenuClass::LevelSelectorMenuClass() {
 	setupButton(pauseMenuButtonArray[0].buttonText, "PARK: DAY", 30, sf::Color::Black, 1000, 500);
 	setupButton(pauseMenuButtonArray[1].buttonText, "PARK: NIGHT", 30, sf::Color::Black, 1000, 550);
 	setupButton(pauseMenuButtonArray[2].buttonText, "BRIDGE: DAY", 30, sf::Color::Black, 1000, 600);
+	setupButton(pauseMenuButtonArray[3].buttonText, "BRIDGE: NIGHT", 30, sf::Color::Black, 1000, 650);
 }
 
 
@@ -63,6 +64,11 @@ void LevelSelectorMenuClass::update(sf::RenderWindow& window, PlayerClass& playe
 				handleBridgeDayButtonClicked();
 				inputDelay = 500; // Delay to prevent multiple clicks
 			}
+			else if (button.buttonName == "BRIDGE: NIGHT" && inputDelay == 0) {
+				std::cout << "Bridge night button clicked!" << std::endl;
+				handleBridgeNightButtonClicked();
+				inputDelay = 500; // Delay to prevent multiple clicks
+			}
 
 		}
 	}
@@ -110,7 +116,12 @@ void LevelSelectorMenuClass::handleParkDayButtonClicked() {
 void LevelSelectorMenuClass::handleParkNightButtonClicked() {
 	selectedLevel = 2; // Set the selected level to Park: Night
 };
+
 void LevelSelectorMenuClass::handleBridgeDayButtonClicked() {
 	selectedLevel = 3; // Set the selected level to Bridge: Day
+};
+
+void LevelSelectorMenuClass::handleBridgeNightButtonClicked() {
+	selectedLevel = 4; // Set the selected level to Bridge: Night
 };
 

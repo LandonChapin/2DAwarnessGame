@@ -56,7 +56,7 @@ void QuestionChest::update(float dt, sf::RenderWindow& window) {
 	if (player) {
 		if (detectPlayer(*player)) {
 			isColliding = true;
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !isOpen) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && isOpen == 0) {
 				// Interact
 				std::cout << "Interacting with chest!" << std::endl;
 				
@@ -74,12 +74,19 @@ void QuestionChest::update(float dt, sf::RenderWindow& window) {
 				questionMenu.setActive(true);
 				
 			}
-			if (questionMenu.getActive() && !isOpen) {
+			if (questionMenu.getActive() && isOpen == 0) {
 				
 				isOpen = questionMenu.update(window, sprite.getPosition()); // Update the question menu if it's active
-				if (isOpen) {
+				
+				if (isOpen == 2) {
 					// Logic for whatever happens when they open a chest
 					sprite.setTexture(textureOpen);
+					questionMenu.setActive(false); // Deactivate the question menu after answering
+					std::cout << "Question menu updated, isOpen state: " << isOpen << std::endl;
+				}
+				else if (isOpen == 1){
+					std::cout << "Question menu updated, isOpen state: " << isOpen << std::endl;
+					isOpen = 0; // Reset the chest state if the answer is wrong
 					questionMenu.setActive(false); // Deactivate the question menu after answering
 				}
 			}
@@ -97,7 +104,7 @@ void QuestionChest::draw(sf::RenderWindow& window) {
 	window.draw(sprite);
 
 
-	if (isColliding && !isOpen) {
+	if (isColliding && isOpen == 0) {
 		
 		// Draw the hitbox
 		//hitbox.draw(window);
@@ -112,4 +119,14 @@ void QuestionChest::draw(sf::RenderWindow& window) {
 	}
 
 	
+}
+
+void QuestionChest::setOpen(bool open){
+	isOpen = open; 
+	if (isOpen == 2) {
+		sprite.setTexture(textureOpen); // Change the texture to the open chest
+	}
+	else {
+		sprite.setTexture(texture); // Change the texture back to the closed chest
+	}
 }

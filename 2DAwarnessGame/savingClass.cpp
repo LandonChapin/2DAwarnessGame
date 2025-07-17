@@ -90,10 +90,10 @@ void savingClass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player,
         for (int i = 0; i < inventorySize; ++i) {
             if (i < loadedInventory.size()) {
                 if (player.playerInventory[i].isCollected) {
-                    npcManager.loadChest(i, true);
+                    npcManager.loadChest(i, true, mapNumber);
                 }
                 else {
-					npcManager.loadChest(i, false);
+					npcManager.loadChest(i, false, mapNumber);
                 }
             }
 		}

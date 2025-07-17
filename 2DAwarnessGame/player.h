@@ -14,8 +14,6 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	void update(float dt, sf::RenderWindow& window) override;
 	void handleInput(float dt);
-	int getHealth() const;
-	void takeDamage(int amount, int direction);
 	void setPlayerName(const std::string name);
 	void initializeFont();
 	Hitbox hitbox;
@@ -40,7 +38,7 @@ public:
 		{"test", "test", false},
 		{"test", "test", false},
 		{"test", "test", false},
-		{"", "Air pollution in cities is primarily caused\n by a combination of human activities, including transportation,\n industrial emissions, and construction,\na as well as natural factors like weather patterns.\n These sources release pollutants like particulate matter,\n nitrogen oxides, and sulfur dioxide,\n which can lead to smog, respiratory problems, and other health issues. ", false}
+		{"WHAT CAUSES THIS AIR POLUTION IN THE CITY", "Air pollution in cities is primarily caused\n by a combination of human activities, including transportation,\n industrial emissions, and construction,\na as well as natural factors like weather patterns.\n These sources release pollutants like particulate matter,\n nitrogen oxides, and sulfur dioxide,\n which can lead to smog, respiratory problems, and other health issues. ", false}
 
 	};
 private:
@@ -54,16 +52,10 @@ private:
 	float timeSinceLastFrame = 0.0f;
 	// Speed of the player
 	float speed = 9.f;
-	// The health of the player
-	int health = 25;
-	// Damage management
-	float damageCooldown = 0.5f; // seconds
-	float timeSinceLastHit = 0.f;
 	bool moved = false; // Flag to check if the player has moved this frame
 	bool jumping = false; // Flag to check if the player is jumping
 	bool falling = false; // Flag to check if the player is falling
 	bool onGround = true; // Flag to check if the player is on the ground
-	bool playerDead = false; //check if the player is dead
 	int playerGravity = 0; // Number of frames the player has been jumping
 	int FrameEnd;
 
@@ -86,10 +78,7 @@ private:
 		"Assets/Player/Idle/AG_Player_Idle2.png",
 	};
 
-	// Array of sleeping frames
-	std::vector<std::string> sleepArray = {
-
-	};
+	
 };
 
 #endif

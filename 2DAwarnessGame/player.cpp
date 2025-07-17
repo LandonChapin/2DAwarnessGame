@@ -32,6 +32,8 @@ PlayerClass::PlayerClass(std::string texturePath, float speed) : EntityClass(tex
 	hitbox.setColor(sf::Color(0, 255, 0, 100)); // Set the color of the hitbox
 
 	
+	initializeFont(); // Initialize the font for the player name text
+	setPlayerName("Default Name"); // Set the default player name
 
 	// Set the speed of the player
 	this->speed = speed;
@@ -49,6 +51,7 @@ void PlayerClass::draw(sf::RenderWindow& window)
 	//hitbox.draw(window);
 	//draw the text
 	window.draw(nameText);
+
 }
 
 // The direction the player is facing
@@ -63,9 +66,8 @@ void PlayerClass::update(float dt, sf::RenderWindow& window)
 	handleInput(dt);
 	// Update the hitbox position to match the sprite position
 	hitbox.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
-	nameText.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y + 0.f));
-	timeSinceLastHit += dt;
-
+	nameText.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y - 60.f));
+	
 	// Create a view that follows the player
 	sf::View view = window.getView();
 	view.setCenter(sprite.getPosition()); // Center the view on the player's position
@@ -100,14 +102,6 @@ void PlayerClass::handleInput(float dt)
 		// Interact
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K)) {
-		playerDead = true; // Set the playerDead flag to true
-		curentFrame = 0; // Reset the current frame
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
-		takeDamage(1, 1);
-	}
 
 	// Move the player
 	if (jumping && !falling && !onGround || !jumping && falling && !onGround) {
@@ -160,11 +154,7 @@ void PlayerClass::handleAnimation(int direction, float dt)
 		texture.loadFromFile("");
 		SleepCounter = 0;
 	}
-	/*else if (SleepCounter >= 10000) {
-		texture.loadFromFile(sleepArray[curentFrame % 19]);//
-		timePerFrame = 19.0f; // 1/10 of a second
-		FrameEnd = 19;
-	}*/
+	
 	else {
 		texture.loadFromFile(idleArray[curentFrame % 2]);
 		timePerFrame = 24.0f; // 1/10 of a second
@@ -193,25 +183,7 @@ void PlayerClass::handleAnimation(int direction, float dt)
 	sprite.setTexture(texture); // Set the texture of the sprite to the current frame
 }
 
-int PlayerClass::getHealth() const {
 
-	return health;
-}
-
-void PlayerClass::takeDamage(int amount, int direction) {
-	if (health > 0) {
-		health -= amount;
-		std::cout << "Player took damage! Health: " << health << std::endl;
-		timeSinceLastHit = 0.f;
-		sprite.move(-direction * 50, 0); // Move the player back when taking damage
-	}
-	if (health <= 0 && !playerDead) {
-		playerDead = true; // Set the playerDead flag to true
-		curentFrame = 0; // Reset the current frame
-		std::cout << "Player is dead!" << std::endl;
-	}
-
-}
 
 void PlayerClass::setPlayerName(const std::string name) {
 	displayName = name;

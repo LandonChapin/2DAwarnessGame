@@ -19,7 +19,7 @@ class QuestionMenu {
 public:
 	QuestionMenu() {};
 	void draw(sf::RenderWindow& window);
-	bool update(sf::RenderWindow& window, sf::Vector2f owner);
+	int update(sf::RenderWindow& window, sf::Vector2f owner);
 	void initializeMenu(int questionNumber, sf::Vector2f owner); // Move this method to public access
 	void setActive(bool active) { isActive = active; } // Method to set the active state of the question menu
 	bool getActive() const { return isActive; } // Method to get the active state of the question menu
@@ -43,10 +43,10 @@ private:
 	void updateButtonHover(sf::Text& button, Hitbox& hitbox, const sf::Vector2f& mousePos);
 	void updateButtonPositions(sf::Vector2f owner);
 
-	bool handleAnswer1ButtonClicked();
-	bool handleAnswer2ButtonClicked();
-	bool handleAnswer3ButtonClicked();
-	bool handleAnswer4ButtonClicked();
+	int handleAnswer1ButtonClicked();
+	int handleAnswer2ButtonClicked();
+	int handleAnswer3ButtonClicked();
+	int handleAnswer4ButtonClicked();
 
 	std::vector <s_Question> questionArray = {
 	s_Question{	std::string("I used to visit Dreamland Park (now located here) in my childhood.\n After many years, I decided to stop by this park again.\n But today, while I was walking in the park for around 30 minutes,\n I started coughing; my eyes and throat were irritated,\n and I felt shortness of breath.\n I wonder why."),

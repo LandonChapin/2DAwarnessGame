@@ -82,6 +82,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 
 			window.display(); // Display the main menu
 			break;
+
 		case 1:
 			// Logic for initializing level 1
 			
@@ -105,6 +106,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 
 			window.display();
 			break;
+
 		case 2:
 			// Logic for initializing level 2
 			
@@ -146,8 +148,33 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			npcManager->npcDraw(window, level); // Draw the entities
 			world.drawForeground(window); // Draw the foreground elements of the world
 
+			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
 			
+			window.display(); // Display the game world
+
+			break;
+
+		case 4:
+			// Logic for initializing level 4
+
+			window.clear(sf::Color::Black);
+
+			world.update(player, window, dt); // Update the game world
+			player.update(dt, window);
+
+			npcManager->npcUpdate(dt, window, level); // Update the entities
+
+
+			world.draw(window); // Draw the game world
+
+			npcManager->npcDraw(window, level); // Draw the entities
 			
+			player.draw(window);
+			
+			world.drawForeground(window); // Draw the foreground elements of the world
+
+			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
+
 			window.display(); // Display the game world
 
 			break;
@@ -176,6 +203,7 @@ void GameController::runPauseMenu(NpcManager* npcManager) {
 	else if (pauseState == 2) {
 		savingClass save;
 		save.loadGame(pauseMenu.getSaveSlot(), currentLevel, player, *npcManager);
+		world.initialize(currentLevel); // <-- Add this line
 		pauseMenu.setLoading(false);
 		pauseMenu.finishSave();
 	}

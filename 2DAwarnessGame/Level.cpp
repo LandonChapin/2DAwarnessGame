@@ -170,8 +170,7 @@ void PlayWorld::update(PlayerClass player, sf::RenderWindow& window, float dt) {
 	// Parallax backgrounds
 	sf::Vector2f viewCenter = currentView.getCenter();
 
-	// Sky is static
-	skySprite.setPosition(-500, -500);
+	
 
 	// Parallax backgrounds
 	background1Sprite.setPosition(
@@ -184,6 +183,10 @@ void PlayWorld::update(PlayerClass player, sf::RenderWindow& window, float dt) {
 		-500 + (viewCenter.x - window.getSize().x / 2) * PARALLAX_FACTORS[3], 0);
 	background5Sprite.setPosition(
 		-500 + (viewCenter.x - window.getSize().x / 2) * PARALLAX_FACTORS[4], 0);
+
+	// Sky is static
+	skySprite.setPosition(
+		-500 + (viewCenter.x - window.getSize().x / 2) * PARALLAX_FACTORS[0], -500);
 
 	// Ground and foreground move with the view (no parallax)
 	groundSprite.setPosition(-500, 0);
@@ -321,7 +324,7 @@ void PlayWorld::initialize(int episodeNum) {
 	{
 		// Load textures for area 3 (Bridge: Day)
 		mapFiles = {
-			"Assets/Backgrounds/AG_BackgroundSky.png",
+			"Assets/Backgrounds/AG_BackgroundSky_BridgeDay.png",
 		"Assets/Backgrounds/Bridge/AG_Ground_Bridge.png",
 		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day1.png",
 		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day2.png",
@@ -350,6 +353,39 @@ void PlayWorld::initialize(int episodeNum) {
 		};
 		break;
 	}
+	case 4:
+	{
+		// Load textures for area 3 (Bridge: Night)
+		mapFiles = {
+			"Assets/Backgrounds/AG_BackgroundSky_BridgeNight.png",
+		"Assets/Backgrounds/Bridge/AG_Ground_Bridge.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night2.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Day3.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night4_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night5.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		};
+		break;
+	}
 	}
 	// Load the textures
 	loadTextures(mapFiles);
@@ -366,7 +402,7 @@ void PlayWorld::updateAnimation(float dt) {
 			currentFrame = (currentFrame + 1); // Loop through frames
 		}
 		frameTimer = 0; // Reset timer
-		std::cout << "frame update" << currentFrame << std::endl;
+		
 
 		// Set the current texture for the sprite based on the current frame
 		if (!background4Texture.loadFromFile(mapFiles[5 + currentFrame])) {

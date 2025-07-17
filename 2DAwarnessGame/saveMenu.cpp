@@ -96,19 +96,19 @@ bool savingMenuClass::update(PlayerClass& player, sf::RenderWindow& window, int 
 				std::cout << "Save Slot 1 button clicked!" << std::endl;
 				handleSaveSlot1Clicked();
 				inputDelay = 300; // Delay to prevent multiple clicks
-				return false;
+				return true;
 			}
 			else if (button.buttonName == "SAVE SLOT 2" && inputDelay == 0) {
 				std::cout << "Save Slot 2 button clicked!" << std::endl;
 				handleSaveSlot2Clicked();
 				inputDelay = 300; // Delay to prevent multiple clicks
-				return false;
+				return true;
 			}
 			else if (button.buttonName == "SAVE SLOT 3" && inputDelay == 0) {
 				std::cout << "Save Slot 3 button clicked!" << std::endl;
 				handleSaveSlot3Clicked();
 				inputDelay = 300; // Delay to prevent multiple clicks
-				return false;
+				return true;
 			}
 		}
 	}
@@ -121,30 +121,30 @@ bool savingMenuClass::update(PlayerClass& player, sf::RenderWindow& window, int 
 					std::cout << "Load Slot 1 button clicked!" << std::endl;
 					handleLoadSlot1Clicked();
 					inputDelay = 300; // Delay to prevent multiple clicks
-					return false;
+					return true;
 				}
 				else if (button.buttonName == "LOAD SLOT 2" && inputDelay == 0) {
 					std::cout << "Load Slot 2 button clicked!" << std::endl;
 					handleLoadSlot2Clicked();
 					inputDelay = 300; // Delay to prevent multiple clicks
-					return false;
+					return true;
 				}
 				else if (button.buttonName == "LOAD SLOT 3" && inputDelay == 0) {
 					std::cout << "Load Slot 3 button clicked!" << std::endl;
 					handleLoadSlot3Clicked();
 					inputDelay = 300; // Delay to prevent multiple clicks
-					return false;
+					return true;
 				}
 			}
 		}
 	}
-	else {
+	
 		// Reset Input Delay
 		if (inputDelay > 0) {
 			inputDelay--;
 		}
 		return false;
-	}
+	
 	
 
 }
@@ -188,4 +188,5 @@ void savingMenuClass::resetSaveMenu() {
 	saveSlot = 0;
 
 	std::cout << "Save menu reset." << std::endl;
+	saving = 0; // Reset saving state
 }

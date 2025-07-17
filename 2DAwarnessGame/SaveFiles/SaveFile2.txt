@@ -1,7 +1,7 @@
 MapNumber: 2
-PlayerX: 1101
+PlayerX: 713
 PlayerY: 645
-InventorySize: 8
+InventorySize: 9
 ItemQuestion: WHAT IS AIR POLLUTION?
 ItemDescription: Air pollution is when harmful gases, dust, 
 and other particles are present in the air we breathe.
@@ -31,10 +31,19 @@ Supporting policies that promote clean energy
 ItemCollected: false
 ItemQuestion: test
 ItemDescription: test
-ItemCollected: true
+ItemCollected: false
 ItemQuestion: test
 ItemDescription: test
-ItemCollected: true
+ItemCollected: false
 ItemQuestion: test
 ItemDescription: test
+ItemCollected: false
+ItemQuestion: WHAT CAUSES THIS AIR POLUTION IN THE CITY
+ItemDescription: Air pollution in cities is primarily caused
+ by a combination of human activities, including transportation,
+ industrial emissions, and construction,
+a as well as natural factors like weather patterns.
+ These sources release pollutants like particulate matter,
+ nitrogen oxides, and sulfur dioxide,
+ which can lead to smog, respiratory problems, and other health issues. 
 ItemCollected: false

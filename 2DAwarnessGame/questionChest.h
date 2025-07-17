@@ -18,14 +18,15 @@ public:
 	bool detectPlayer(EntityClass& player) override; // Move this to public to make it accessible  
 
 	//int getInfo() const { return info; } // Getter for the info in the chest
-	void setOpen(bool open) { isOpen = open; } // Setter for the chest state
+	void setOpen(bool open); // Setter for the chest state
+	int getPInfo() const { return pInfo; } // Getter for the info in the chest
 
 private:
 	sf::Texture texture;
 	sf::Texture textureOpen; // Texture for the open chest
 	sf::Sprite sprite;
 	Hitbox hitbox;
-	bool isOpen = false; // State of the chest, whether it's open or closed
+	int isOpen = false; // State of the chest, 0 = closed, 1 = wrong answer, 2 = open
 	bool isColliding = false; // State of collection
 	sf::Font font; // Font for text rendering
 	sf::Text text; // Text to display when player is near the chest

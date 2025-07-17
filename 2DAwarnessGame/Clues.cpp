@@ -118,12 +118,10 @@ void cluesMenuClass::handleNextButtonClicked(PlayerClass& player) {
 		if (currentItemIndex < player.getPlayerInventory().size() - 1) {
 			currentItemIndex++;
 			// Skip if next item is "test"
-			if (player.getPlayerInventory()[currentItemIndex].Question == "test") {
+			while (player.getPlayerInventory()[currentItemIndex].Question == "test") {
 				currentItemIndex++;
 			}
-			else {
-				selectedItem = &player.getPlayerInventory()[currentItemIndex];
-			}
+			selectedItem = &player.getPlayerInventory()[currentItemIndex];
 		}
 	}
 }
@@ -133,12 +131,10 @@ void cluesMenuClass::handleBackButtonClicked(PlayerClass& player) {
 		if (currentItemIndex > 0) {
 			currentItemIndex--;
 			// Skip if next item is "test"
-			if (player.getPlayerInventory()[currentItemIndex].Question == "test") {
+			while (player.getPlayerInventory()[currentItemIndex].Question == "test") {
 				currentItemIndex--;
 			}
-			else {
-				selectedItem = &player.getPlayerInventory()[currentItemIndex];
-			}
+			selectedItem = &player.getPlayerInventory()[currentItemIndex];
 		}
 	}
-}
+} 

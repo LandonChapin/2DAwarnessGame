@@ -1,5 +1,5 @@
 MapNumber: 1
-PlayerX: 2272
+PlayerX: 2478
 PlayerY: 645
 InventorySize: 5
 ItemQuestion: WHAT IS AIR POLLUTION?

@@ -1,6 +1,7 @@
 #include "npcManager.h"
 #include "chest.h"
 #include "questionChest.h"
+#include "CarSpawner.h"
 
 NpcManager::NpcManager(PlayerClass* player) {
 	// Initialize the NPC manager
@@ -22,10 +23,17 @@ NpcManager::NpcManager(PlayerClass* player) {
 
 		// Level 3 NPCs
 		{
-			new Chest("", "", 600, 665, 150.f, 150.f, 50, 50, player, 8),
+			new Chest("Assets/NPCs/Chests/Chest1.png", "Assets/NPCs/Chests/Chest2.png", 3200, 665, 150.f, 150.f, 50, 50, player, 8),
+		},
+
+		// Level 4 NPCs
+		{
+			new CarSpawner(10000, 590, 700, player),
+
 		},
 		
 	};
+    
 };
 
 void NpcManager::npcUpdate(float dt, sf::RenderWindow& window, int levelNum) {
@@ -41,8 +49,8 @@ void NpcManager::npcDraw(sf::RenderWindow& window, int levelNum) {
 };
 
 // Make Chest npcs load
-void NpcManager::loadChest(int infoNum,bool open) {
-	for (auto& npc : npcs[0]) {
+void NpcManager::loadChest(int infoNum,bool open, int levelNum) {
+	for (auto& npc : npcs[levelNum - 1]) {
 		Chest* chestCast = dynamic_cast<Chest*>(npc);
 		if (chestCast && chestCast->getInfo() == infoNum) {
 			chestCast -> setOpen(open);
@@ -50,6 +58,14 @@ void NpcManager::loadChest(int infoNum,bool open) {
 		}
 		else {
 			std::cerr << "Error: npc is not of type Chest!" << std::endl;
+			QuestionChest* chestCast = dynamic_cast<QuestionChest*>(npc);
+			if (chestCast && chestCast->getPInfo() == infoNum) {
+				chestCast->setOpen(open);
+				break;
+			}
+			else {
+				std::cerr << "Error: npc is not of type QuestionChest!" << std::endl;
+			}
 		}
 	}
 };

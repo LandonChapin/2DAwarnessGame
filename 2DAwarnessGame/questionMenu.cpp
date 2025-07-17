@@ -15,7 +15,7 @@ void QuestionMenu::draw(sf::RenderWindow& window) {
 	}
 }
 
-bool QuestionMenu::update(sf::RenderWindow& window, sf::Vector2f owner) { // Returns true if the correct answer is selected, false otherwise
+int QuestionMenu::update(sf::RenderWindow& window, sf::Vector2f owner) { // Returns true if the correct answer is selected, false otherwise
 	if (isActive) {
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Vector2f mousePosF = window.mapPixelToCoords(mousePos);
@@ -49,7 +49,7 @@ bool QuestionMenu::update(sf::RenderWindow& window, sf::Vector2f owner) { // Ret
 	// Update the position of the question text and buttons based on the owner's position
 	updateButtonPositions(owner);
 
-	return false; // No answer selected yet
+	return 0; // No answer selected yet
 }
 
 void QuestionMenu::initializeMenu(int questionNumber, sf::Vector2f owner) {
@@ -106,38 +106,38 @@ void QuestionMenu::updateButtonPositions(sf::Vector2f owner) {
 	}
 }
 
-bool QuestionMenu::handleAnswer1ButtonClicked() {
+int QuestionMenu::handleAnswer1ButtonClicked() {
 	if (currentQuestionIndex < questionArray.size() && questionArray[currentQuestionIndex].correctAnswer == 1) {
 		std::cout << "Correct answer selected!" << std::endl;
-		return true; // Correct answer
+		return 2; // Correct answer
 	}
 	std::cout << "Incorrect answer selected!" << std::endl;
-	return false; // Incorrect answer
+	return 1; // Incorrect answer
 }
 
-bool QuestionMenu::handleAnswer2ButtonClicked() {
+int QuestionMenu::handleAnswer2ButtonClicked() {
 	if (currentQuestionIndex < questionArray.size() && questionArray[currentQuestionIndex].correctAnswer == 2) {
 		std::cout << "Correct answer selected!" << std::endl;
-		return true; // Correct answer
+		return 2; // Correct answer
 	}
 	std::cout << "Incorrect answer selected!" << std::endl;
-	return false; // Incorrect answer
+	return 1; // Incorrect answer
 }
 
-bool QuestionMenu::handleAnswer3ButtonClicked() {
+int QuestionMenu::handleAnswer3ButtonClicked() {
 	if (currentQuestionIndex < questionArray.size() && questionArray[currentQuestionIndex].correctAnswer == 3) {
 		std::cout << "Correct answer selected!" << std::endl;
-		return true; // Correct answer
+		return 2; // Correct answer
 	}
 	std::cout << "Incorrect answer selected!" << std::endl;
-	return false; // Incorrect answer
+	return 1; // Incorrect answer
 }
 
-bool QuestionMenu::handleAnswer4ButtonClicked() {
+int QuestionMenu::handleAnswer4ButtonClicked() {
 	if (currentQuestionIndex < questionArray.size() && questionArray[currentQuestionIndex].correctAnswer == 4) {
 		std::cout << "Correct answer selected!" << std::endl;
-		return true; // Correct answer
+		return 2; // Correct answer
 	}
 	std::cout << "Incorrect answer selected!" << std::endl;
-	return false; // Incorrect answer
+	return 1; // Incorrect answer
 }
