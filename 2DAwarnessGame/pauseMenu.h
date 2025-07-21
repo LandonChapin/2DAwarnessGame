@@ -172,7 +172,7 @@ private:
 		s_button{std::string("QUIT"),sf::Text(), Hitbox()},
 		s_button{std::string("SAVE"),sf::Text(), Hitbox()},
 		s_button{std::string("LOAD"),sf::Text(), Hitbox()},
-		s_button{std::string("SETTINGS"),sf::Text(), Hitbox()}
+		//s_button{std::string("SETTINGS"),sf::Text(), Hitbox()}
 
 	};
 	// Array For side menu buttons

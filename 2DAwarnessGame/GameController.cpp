@@ -10,6 +10,7 @@ GameController::GameController(){
 	player = PlayerClass("Assets/Player/AG_Player.png", 10); // Assuming Player is a class that handles player logic
 	pauseMenu.setCurrentMenu(0); // Set the current menu to 0 (Main Menu)
 	mainMenu.initialize(); // Set the current menu to 0 (Main Menu)
+	textDisplay.initializeText(0, window); // Initialize the text display
 	
 	background = sf::RectangleShape(sf::Vector2f(5000, 1500));
 	background.setFillColor(sf::Color::Blue);
@@ -44,16 +45,7 @@ void GameController::playGame() {
 
 				}
 				if (event.key.code == sf::Keyboard::Num1) { // Reset the game
-					currentLevel = 1;
-					world.initialize(1); // Initialize the world for level 1
-				}
-				if (event.key.code == sf::Keyboard::Num2) { // Go to level 2
-					currentLevel = 2;
-					world.initialize(2); // Initialize the world for level 2
-				}
-				if (event.key.code == sf::Keyboard::Num3) { // Go to level 3
-					currentLevel = 3;
-					world.initialize(3); // Initialize the world for level 3
+					player.setScore(10); // Reset the player's score
 				}
 			}
 		}
@@ -74,6 +66,13 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			window.clear(sf::Color::Black);
 
 			currentLevel = mainMenu.update(window); // Update the main menu
+			if (currentLevel == 10) {
+				savingClass save;
+				save.loadGame(mainMenu.getSaveSlot(), currentLevel, player, *npcManager);
+				world.initialize(currentLevel);
+				pauseMenu.setLoading(false);
+				pauseMenu.finishSave();
+			};
 			
 
 			mainMenu.draw(window); // Draw the main menu
@@ -163,7 +162,11 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			player.update(dt, window);
 
 			npcManager->npcUpdate(dt, window, level); // Update the entities
-
+			textDisplay.update(dt, window, currentLevel, player.getScore()); // Update the text display with the player's 
+			if (textDisplay.canMoveOnToNextLevel()) {
+				currentLevel++;
+				world.initialize(currentLevel); // Initialize the world for the next level
+			}
 
 			world.draw(window); // Draw the game world
 
@@ -173,10 +176,26 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			
 			world.drawForeground(window); // Draw the foreground elements of the world
 
+			player.drawScore(window); // Draw the player's score
+
+			textDisplay.draw(window); // Draw the text display
+
 			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
 
 			window.display(); // Display the game world
 
+			break;
+
+		case 5:
+			// Logic for initializing level 5
+			window.clear(sf::Color::Black);
+
+			textDisplay.update(dt, window, currentLevel, 0); // Update the text display
+
+
+			textDisplay.draw(window); // Draw the text display
+
+			window.display();
 			break;
 
 		default:
@@ -203,7 +222,7 @@ void GameController::runPauseMenu(NpcManager* npcManager) {
 	else if (pauseState == 2) {
 		savingClass save;
 		save.loadGame(pauseMenu.getSaveSlot(), currentLevel, player, *npcManager);
-		world.initialize(currentLevel); // <-- Add this line
+		world.initialize(currentLevel);
 		pauseMenu.setLoading(false);
 		pauseMenu.finishSave();
 	}

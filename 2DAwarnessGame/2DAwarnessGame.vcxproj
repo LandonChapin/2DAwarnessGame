@@ -150,6 +150,7 @@
     <ClCompile Include="questionMenu.cpp" />
     <ClCompile Include="saveMenu.cpp" />
     <ClCompile Include="savingClass.cpp" />
+    <ClCompile Include="TextDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="questionMenu.h" />
     <ClInclude Include="s_Button.h" />
     <ClInclude Include="s_Item.h" />
+    <ClInclude Include="TextDisplay.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

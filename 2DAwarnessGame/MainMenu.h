@@ -12,6 +12,8 @@ public:
 	void initialize(); // Initialize the main menu
 	void draw(sf::RenderWindow& window);
 	int update(sf::RenderWindow& window);
+
+	int getSaveSlot() const { return saveSlot; } // Getter for the save slot
 private:
 	std::string fontString = "Assets/Fonts/Seagram_tfb/Seagram tfb.ttf"; // Path to the font file
 	sf::Font mainMenuFont; // Font for the main menu
@@ -19,7 +21,7 @@ private:
 	std::vector<s_button> mainMenuButtonArray{
 		s_button{std::string("NEW GAME"), sf::Text(), Hitbox()},
 		s_button{std::string("LOAD GAME"), sf::Text(), Hitbox()},
-		s_button{std::string("SETTINGS"), sf::Text(), Hitbox()},
+		//s_button{std::string("SETTINGS"), sf::Text(), Hitbox()},
 		s_button{std::string("QUIT"), sf::Text(), Hitbox()}
 	};
 
@@ -35,8 +37,15 @@ private:
 	void handleSettingsButtonClicked();
 	void handleQuitButtonClicked(sf::RenderWindow& window);
 	
+	void handleLoad1ButtonClicked();
+	void handleLoad2ButtonClicked();
+	void handleLoad3ButtonClicked();
 
 	void updateButtonPositions();
+
+	int saveSlot = 0; // Variable to track the save slot
+
+	bool isSaving = false;
 };
 
 #pragma once

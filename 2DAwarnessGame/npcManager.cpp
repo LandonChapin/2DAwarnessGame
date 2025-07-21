@@ -28,7 +28,7 @@ NpcManager::NpcManager(PlayerClass* player) {
 
 		// Level 4 NPCs
 		{
-			new CarSpawner(10000, 590, 700, player),
+			new CarSpawner(10000, 590, 350, player),
 
 		},
 		

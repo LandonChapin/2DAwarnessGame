@@ -41,6 +41,19 @@ public:
 		{"WHAT CAUSES THIS AIR POLUTION IN THE CITY", "Air pollution in cities is primarily caused\n by a combination of human activities, including transportation,\n industrial emissions, and construction,\na as well as natural factors like weather patterns.\n These sources release pollutants like particulate matter,\n nitrogen oxides, and sulfur dioxide,\n which can lead to smog, respiratory problems, and other health issues. ", false}
 
 	};
+
+	int getScore() const {
+		return score;
+	}
+	void setScore(int newScore) {
+		score = newScore;
+		scoreText.setString("Score: " + std::to_string(score));
+	}
+
+	void drawScore(sf::RenderWindow& window) {
+		window.draw(scoreText);
+	}
+
 private:
 	// Items that the player has
 
@@ -59,10 +72,14 @@ private:
 	int playerGravity = 0; // Number of frames the player has been jumping
 	int FrameEnd;
 
+	int score = 0; // Player's score
+
 	// variables for display name
 	std::string displayName = "Default Name"; // The name of the player
 	sf::Text nameText; // The text object for the name
 	sf::Font nameFont; // The font for the name text
+
+	sf::Text scoreText; // The text object for the score
 
 	int SleepCounter = 0;
 	void handleAnimation(int direction, float dt);

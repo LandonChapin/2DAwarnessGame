@@ -11,10 +11,11 @@ void MainMenuClass::initialize() {
 	}
 
 	// Set up the buttons
-	setupButton(mainMenuButtonArray[0].buttonText, "NEW GAME", 35, sf::Color::Black, 600, 200);
-	setupButton(mainMenuButtonArray[1].buttonText, "LOAD GAME", 35, sf::Color::Black, 600, 300);
-	setupButton(mainMenuButtonArray[2].buttonText, "SETTINGS", 35, sf::Color::Black, 600, 400);
-	setupButton(mainMenuButtonArray[3].buttonText, "QUIT", 35, sf::Color::Black, 600, 500);
+	for (auto& button : mainMenuButtonArray) {
+		setupButton(button.buttonText, button.buttonName, 35, sf::Color::Black, 600, 200 + (&button - &mainMenuButtonArray[0]) * 100);
+	}
+
+
 	for (auto& button : mainMenuButtonArray) {
 		button.buttonHitbox.setSize({ button.buttonText.getGlobalBounds().width, button.buttonText.getGlobalBounds().height });
 		button.buttonHitbox.setPosition(button.buttonText.getPosition());

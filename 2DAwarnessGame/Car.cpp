@@ -61,10 +61,11 @@ void Car::update(float dt, sf::RenderWindow& window) {
 					if (playerCast) {
 						// Add to the score if the car is poluting and subtract if it is not
 						if (poluting) {
-							//
+							playerCast->setScore(playerCast->getScore() + 1); // Increment the score by 1
+							std::cout << playerCast->getScore() << std::endl; // Print the score to the console
 						}
 						else {
-							//
+							playerCast->setScore(playerCast->getScore() - 1); // Decrement the score by 1
 						}
 					}
 					else {
@@ -91,7 +92,9 @@ void Car::draw(sf::RenderWindow& window) {
 		//hitbox.draw(window);
 	// Draw the text
 	if (isColliding) {
-		window.draw(text);
+		if (!isOpen) {
+			window.draw(text);
+		}
 	}
 }
 

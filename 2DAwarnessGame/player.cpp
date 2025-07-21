@@ -35,6 +35,9 @@ PlayerClass::PlayerClass(std::string texturePath, float speed) : EntityClass(tex
 	initializeFont(); // Initialize the font for the player name text
 	setPlayerName("Default Name"); // Set the default player name
 
+	
+	scoreText.setString("Score: 0");
+
 	// Set the speed of the player
 	this->speed = speed;
 };
@@ -67,6 +70,7 @@ void PlayerClass::update(float dt, sf::RenderWindow& window)
 	// Update the hitbox position to match the sprite position
 	hitbox.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
 	nameText.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y - 60.f));
+	scoreText.setPosition(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y - 350.f));
 	
 	// Create a view that follows the player
 	sf::View view = window.getView();
@@ -202,4 +206,8 @@ void PlayerClass::initializeFont() {
 	nameText.setFillColor(sf::Color::White); // Set the color for the display name
 	nameText.setOrigin(nameText.getLocalBounds().width / 2, nameText.getLocalBounds().height / 2); // Set the origin to the center of the text
 
+	scoreText.setFont(nameFont);
+	scoreText.setCharacterSize(30);
+	scoreText.setFillColor(sf::Color::White);
+	scoreText.setOrigin(scoreText.getLocalBounds().width / 2, scoreText.getLocalBounds().height / 2); // Set the origin to the center of the text
 };

@@ -87,6 +87,8 @@ void savingClass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player,
         // Set player inventory
         player.playerInventory = loadedInventory;
 
+		player.setScore(0); // Reset score
+
         for (int i = 0; i < inventorySize; ++i) {
             if (i < loadedInventory.size()) {
                 if (player.playerInventory[i].isCollected) {
