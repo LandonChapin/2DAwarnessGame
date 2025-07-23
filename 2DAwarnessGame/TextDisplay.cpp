@@ -36,6 +36,7 @@ void TextDisplayClass::update(float dt, sf::RenderWindow& window, int levelNum, 
 					time = 0; // Reset the time
 					if (variable >= 10) {
 						canMoveOn = true; // Allow the player to move on if variable is 10 or more
+						time = 0; // Reset the time
 					}
 				}
 			}
@@ -49,6 +50,15 @@ void TextDisplayClass::update(float dt, sf::RenderWindow& window, int levelNum, 
 		case 5:
 		{
 			visible = true; // Ensure the text is visible for level 5
+			time += dt * 1000;
+			if (time >= 500000 && !canMoveOn) {
+				canMoveOn = true;
+				initializeText(currentLevel, window); // Reinitialize the text to display the level 5 information
+				time = 0; // Reset the time
+			}
+			else if (canMoveOn) {
+
+			}
 			break; // No specific logic for level 5, just display the text
 			
 		}
@@ -86,7 +96,8 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 	}
 	case 5:
 	{
-		text.setString("Air pollution is contamination of the indoor\n or outdoor environment by any chemical, physical,\n or biological agent that modifies the natural characteristics of the atmosphere.\nWorld Health Organisation data show that almost the entire global population(99 %)\n breathes air that exceeds WHO guideline limits and contains high levels of pollutants,\n with low - and middle - income countries suffering the highest exposures.\nAir quality is closely linked to the Earth’s climate and ecosystems globally.\nWe must all work together to reduce air pollution to save the Earth and our future.\nWe only aimed to provide you with an idea and thus increase awareness of this issue through this game.\n\n\n* The data is collected from https ://www.who.int/health-topics/air-pollution#tab=tab_1");
+		if (time == 0) {
+		text.setString("Thank you for playing");
 		sf::View view = window.getView();
 		sf::Vector2f viewCenter = view.getCenter();
 		sf::Vector2f viewSize = view.getSize();
@@ -94,6 +105,19 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 		float textX = viewCenter.x - textBounds.width / 2.f;
 		float textY = viewCenter.y - 100.f - textBounds.height / 2.f;
 		text.setPosition(textX, textY);
+		canMoveOn = false;
+		}
+		else if (canMoveOn){
+			text.setString("Air pollution is contamination of the indoor\n or outdoor environment by any chemical, physical,\n or biological agent that modifies the natural characteristics of the atmosphere.\nWorld Health Organisation data show that almost the entire global population(99 %)\n breathes air that exceeds WHO guideline limits and contains high levels of pollutants,\n with low - and middle - income countries suffering the highest exposures.\nAir quality is closely linked to the Earth’s climate and ecosystems globally.\nWe must all work together to reduce air pollution to save the Earth and our future.\nWe only aimed to provide you with an idea and thus increase awareness of this issue through this game.\n\n\n* The data is collected from https ://www.who.int/health-topics/air-pollution#tab=tab_1");
+			sf::View view = window.getView();
+			sf::Vector2f viewCenter = view.getCenter();
+			sf::Vector2f viewSize = view.getSize();
+			sf::FloatRect textBounds = text.getLocalBounds();
+			float textX = viewCenter.x - textBounds.width / 2.f;
+			float textY = viewCenter.y - 100.f - textBounds.height / 2.f;
+			text.setPosition(textX, textY);
+			canMoveOn = false;
+		}
 
 		break;
 	}

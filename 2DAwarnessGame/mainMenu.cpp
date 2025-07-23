@@ -15,18 +15,44 @@ void MainMenuClass::initialize() {
 		setupButton(button.buttonText, button.buttonName, 35, sf::Color::Black, 600, 200 + (&button - &mainMenuButtonArray[0]) * 100);
 	}
 
+	for (auto& button : loadMenuButtonArray) {
+		setupButton(button.buttonText, button.buttonName, 35, sf::Color::Black, 900, 200 + (&button - &loadMenuButtonArray[0]) * 100);
+	}
 
 	for (auto& button : mainMenuButtonArray) {
 		button.buttonHitbox.setSize({ button.buttonText.getGlobalBounds().width, button.buttonText.getGlobalBounds().height });
 		button.buttonHitbox.setPosition(button.buttonText.getPosition());
 		button.buttonHitbox.setColor(sf::Color(0, 2, 0, 100));
 	}
+	for (auto& button : loadMenuButtonArray) {
+		button.buttonHitbox.setSize({ button.buttonText.getGlobalBounds().width, button.buttonText.getGlobalBounds().height });
+		button.buttonHitbox.setPosition(button.buttonText.getPosition());
+		button.buttonHitbox.setColor(sf::Color(0, 2, 0, 100));
+	}
+
+	// Load the background texture
+	if (!backgroundTexture.loadFromFile("Assets/Backgrounds/AG_Background_MainMenu.png")) {
+		std::cerr << "Error loading background texture!" << std::endl;
+	}
+	background.setTexture(backgroundTexture);
+	background.setPosition(0, 0); // Set the position of the background
+	background.setScale(5.0f, 5.0f); // Scale the background to fit the window
+
 }
 
 void MainMenuClass::draw(sf::RenderWindow& window) {
+	// Draw the background
+	window.draw(background);
 	// Draw the buttons
-	for (const auto& button : mainMenuButtonArray) {
-		window.draw(button.buttonText);
+	if (!isSaving) {
+		for (const auto& button : mainMenuButtonArray) {
+			window.draw(button.buttonText);
+		}
+	}
+	else {
+		for (const auto& button : loadMenuButtonArray) {
+			window.draw(button.buttonText);
+		}
 	}
 }
 
@@ -34,27 +60,49 @@ int MainMenuClass::update(sf::RenderWindow& window) {
 	// Check for mouse hover and clicks on buttons
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	sf::Vector2f mousePosF = window.mapPixelToCoords(mousePos);
-	for (auto& button : mainMenuButtonArray) {
-		updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
-			if (button.buttonName == "NEW GAME" && inputDelay == 0) {
-				handleNewGameButtonClicked();
-				inputDelay = 300; // Delay to prevent multiple clicks
+
+	if (!isSaving) {
+		for (auto& button : mainMenuButtonArray) {
+			updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
+				if (button.buttonName == "NEW GAME" && inputDelay == 0) {
+					handleNewGameButtonClicked();
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
+				else if (button.buttonName == "LOAD GAME" && inputDelay == 0) {
+					handleLoadGameButtonClicked();
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
+				else if (button.buttonName == "SETTINGS" && inputDelay == 0) {
+					handleSettingsButtonClicked();
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
+				else if (button.buttonName == "QUIT" && inputDelay == 0) {
+					handleQuitButtonClicked(window);
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
 			}
-			else if (button.buttonName == "LOAD GAME" && inputDelay == 0) {
-				handleLoadGameButtonClicked();
-				inputDelay = 300; // Delay to prevent multiple clicks
-			}
-			else if (button.buttonName == "SETTINGS" && inputDelay == 0) {
-				handleSettingsButtonClicked();
-				inputDelay = 300; // Delay to prevent multiple clicks
-			}
-			else if (button.buttonName == "QUIT" && inputDelay == 0) {
-				handleQuitButtonClicked(window);
-				inputDelay = 300; // Delay to prevent multiple clicks
-			}
-		}
+		};
 	}
+	else {
+		for (auto& button : loadMenuButtonArray) {
+			updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
+				if (button.buttonName == "LOAD SLOT 1" && inputDelay == 0) {
+					handleLoad1ButtonClicked();
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
+				else if (button.buttonName == "LOAD SLOT 2" && inputDelay == 0) {
+					handleLoad2ButtonClicked();
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
+				else if (button.buttonName == "LOAD SLOT 3" && inputDelay == 0) {
+					handleLoad3ButtonClicked();
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
+			}
+	};
+}
 	if (inputDelay > 0) {
 		inputDelay--;
 	}
@@ -91,7 +139,8 @@ void MainMenuClass::handleNewGameButtonClicked() {
 }
 void MainMenuClass::handleLoadGameButtonClicked() {
 	std::cout << "Load Game button clicked!" << std::endl;
-	// Logic to load a game
+	isSaving = true; // Set the saving state to true
+	
 }
 void MainMenuClass::handleSettingsButtonClicked() {
 	std::cout << "Settings button clicked!" << std::endl;
@@ -104,8 +153,35 @@ void MainMenuClass::handleQuitButtonClicked(sf::RenderWindow& window) {
 
 void MainMenuClass::updateButtonPositions() {
 	// Update the positions of the buttons based on the current window size
-	for (size_t i = 0; i < mainMenuButtonArray.size(); ++i) {
-		mainMenuButtonArray[i].buttonText.setPosition(600, 200 + i * 100);
-		mainMenuButtonArray[i].buttonHitbox.setPosition(mainMenuButtonArray[i].buttonText.getPosition());
+	if (!isSaving) {
+		for (size_t i = 0; i < mainMenuButtonArray.size(); ++i) {
+			mainMenuButtonArray[i].buttonText.setPosition(600, 200 + i * 100);
+			mainMenuButtonArray[i].buttonHitbox.setPosition(mainMenuButtonArray[i].buttonText.getPosition());
+		}
 	}
+	else {
+		for (size_t i = 0; i < loadMenuButtonArray.size(); ++i) {
+			loadMenuButtonArray[i].buttonText.setPosition(900, 200 + i * 100);
+			loadMenuButtonArray[i].buttonHitbox.setPosition(loadMenuButtonArray[i].buttonText.getPosition());
+		}
+	}
+}
+
+void MainMenuClass::handleLoad1ButtonClicked() {
+	std::cout << "Load Slot 1 button clicked!" << std::endl;
+	saveSlot = 1; // Set the save slot to 1
+	isSaving = false; // Exit the saving state
+	menuNumber = 10; // Set menu number to indicate loading game
+}
+void MainMenuClass::handleLoad2ButtonClicked() {
+	std::cout << "Load Slot 2 button clicked!" << std::endl;
+	saveSlot = 2; // Set the save slot to 2
+	isSaving = false; // Exit the saving state
+	menuNumber = 10; // Set menu number to indicate loading game
+}
+void MainMenuClass::handleLoad3ButtonClicked() {
+	std::cout << "Load Slot 3 button clicked!" << std::endl;
+	saveSlot = 3; // Set the save slot to 3
+	isSaving = false; // Exit the saving state
+	menuNumber = 10; // Set menu number to indicate loading game
 }

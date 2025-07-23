@@ -188,7 +188,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 
 		case 5:
 			// Logic for initializing level 5
-			window.clear(sf::Color::Black);
+            window.clear(sf::Color(0, 64, 0));
 
 			textDisplay.update(dt, window, currentLevel, 0); // Update the text display
 

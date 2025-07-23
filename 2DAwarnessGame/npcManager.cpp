@@ -8,11 +8,11 @@ NpcManager::NpcManager(PlayerClass* player) {
 	npcs = {
 
 		// Level 1 NPCs
-		{new Chest("","", 600, 665, 150.f, 150.f, 50, 50, player, 0),
+		{new Chest("Assets/Npcs/Chests/SmokePlume1.png","Assets/NPCs/Chests/SmokePlume2.png", 600, 665, 150.f, 150.f, 50, 50, player, 0),
 		new Chest("Assets/NPCs/Chests/AG_Trash1.png","Assets/NPCs/Chests/AG_Trash2.png", 3200, 665, 150.f, 150.f, 50, 50, player, 1),
-		new Chest("","", 1500, 665, 150.f, 150.f, 50, 50, player, 2),
+		new Chest("Assets/NPCs/Chests/Bench1.png","Assets/NPCs/Chests/Bench2.png", 1300, 665, 150.f, 150.f, 50, 50, player, 2),
 		new Chest("Assets/NPCs/Chests/AG_Kid1.png","Assets/NPCs/Chests/AG_Kid2.png", 2800, 680, 150.f, 150.f, 50, 50, player, 3),
-		new Chest("","", 2000, 665, 150.f, 150.f, 50, 50, player, 4),
+		new Chest("Assets/NPCs/Chests/Sign1.png","Assets/NPCs/Chests/Sign1.png", 2000, 665, 150.f, 150.f, 50, 50, player, 4),
 		},
 
 		// Level 2 NPCs

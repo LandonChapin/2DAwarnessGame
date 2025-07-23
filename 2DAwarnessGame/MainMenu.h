@@ -25,6 +25,12 @@ private:
 		s_button{std::string("QUIT"), sf::Text(), Hitbox()}
 	};
 
+	std::vector<s_button> loadMenuButtonArray{
+		s_button{std::string("LOAD SLOT 1"), sf::Text(), Hitbox()},
+		s_button{std::string("LOAD SLOT 2"), sf::Text(), Hitbox()},
+		s_button{std::string("LOAD SLOT 3"), sf::Text(), Hitbox()},
+	};
+
 	int inputDelay = 0; // Delay for input
 
 	int menuNumber = 0; // Variable to track the current menu number
@@ -46,6 +52,11 @@ private:
 	int saveSlot = 0; // Variable to track the save slot
 
 	bool isSaving = false;
+
+	sf::Sprite background; // Background sprite for the main menu
+	sf::Texture backgroundTexture; // Texture for the background sprite
+
+
 };
 
 #pragma once
