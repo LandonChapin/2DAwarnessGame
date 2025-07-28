@@ -4,7 +4,7 @@
 GameController::GameController(){
 	// Initialize the game controller
 	currentLevel = 0;
-	window.create(sf::VideoMode(1600, 900), "2D Awareness Game");
+	window.create(sf::VideoMode(1600, 900), "Air, We Breath");
 	isPaused = false;
 	dt = 0.1f;
 	player = PlayerClass("Assets/Player/AG_Player.png", 10); // Assuming Player is a class that handles player logic
@@ -61,45 +61,68 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 
 
 	switch (level) {
-		case 0:
-			// Logic for initializing level 0
-			window.clear(sf::Color::Black);
+	case 0:
+	{
+		// Logic for initializing level 0
+		window.clear(sf::Color(0, 30, 0));
 
-			currentLevel = mainMenu.update(window); // Update the main menu
-			if (currentLevel == 10) {
-				savingClass save;
-				save.loadGame(mainMenu.getSaveSlot(), currentLevel, player, *npcManager);
-				world.initialize(currentLevel);
-				pauseMenu.setLoading(false);
-				pauseMenu.finishSave();
-			};
+		int level = mainMenu.update(window); // Update the main menu
+		if (level == 1) {
+			textDisplay.update(dt, window, currentLevel, 0); // Update the text display
+			textDisplay.draw(window); // Draw the text display
+			if (textDisplay.canMoveOnToNextLevel()) {
+				currentLevel = level;
+				textDisplay.update(dt, window, currentLevel, 0); // Update the text display
+				player.setPlayerName(mainMenu.getPlayerNameInput()); // Set the player's name from the main menu input
+			}
 			
-
+		}
+		else if (level == 10) {
+			currentLevel = level;
+			savingClass save;
+			save.loadGame(mainMenu.getSaveSlot(), currentLevel, player, *npcManager);
+			world.initialize(currentLevel);
+			pauseMenu.setLoading(false);
+			pauseMenu.finishSave();
+		}
+		else {
 			mainMenu.draw(window); // Draw the main menu
+		};
 
-			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
 
-			window.display(); // Display the main menu
-			break;
 
+
+		musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
+
+		window.display(); // Display the main menu
+		break;
+	}
 		case 1:
 			// Logic for initializing level 1
 			
 			window.clear(sf::Color::Black);
-			
-			
-			world.update(player, window, dt); // Update the game world
-			player.update(dt, window);
-
-			world.draw(window); // Draw the game world
-			
-			npcManager ->npcUpdate(dt, window, level); // Update the entities
-			npcManager->npcDraw(window, level); // Draw the entities
 
 			
-			player.draw(window);
+			if (!textDisplay.canMoveOnToNextLevel()) {
+				textDisplay.update(dt, window, currentLevel, 0); // Update the text display
+				textDisplay.draw(window); // Draw the text display
+			}
+			else {
+				world.update(player, window, dt); // Update the game world
+				player.update(dt, window);
 
-			world.drawForeground(window); // Draw the foreground elements of the world
+
+				world.draw(window); // Draw the game world
+
+				npcManager->npcUpdate(dt, window, level); // Update the entities
+				npcManager->npcDraw(window, level); // Draw the entities
+
+
+				player.draw(window);
+
+				world.drawForeground(window); // Draw the foreground elements of the world
+			}
+			
 
 			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
 

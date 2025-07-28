@@ -26,6 +26,31 @@ void TextDisplayClass::update(float dt, sf::RenderWindow& window, int levelNum, 
 	}
 	else {
 		switch (currentLevel) {
+		case 0:
+			time += dt * 1000;
+			if (time >= 3000000) {
+				visible = false; // Hide the text
+				canMoveOn = true; // Allow the player to move on
+				time = 0; // Reset the time
+			}
+			else {
+				visible = true; // Ensure the text is visible for level 0
+			}
+
+			break;
+
+		case 1:
+			time += dt * 1000;
+			if (time >= 490000) {
+				visible = false; // Ensure the text is visible for level 1
+				canMoveOn = true; // Reset the canMoveOn flag for level 1
+				std::cout << time << std::endl;
+			}
+			else {
+				visible = true; // Hide the text after 100 seconds
+				canMoveOn = false; // Allow the player to move on
+				
+			}
 		case 4:
 			this->variable = variable;
 			if (visible) {
@@ -81,8 +106,39 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 	text.setFillColor(sf::Color::White);
 	
 	switch (levelNum) {
+	case 0:
+	{
+		text.setString("Welcome to Air, We Breathe\nWe are going to spend a few minutes of our lives playing this game,\n and through that, we want to rediscover and\n become aware of one of the significant issues of modern life : air pollution.\nWe hope to remember what we observed during the game and apply the best practices in the future.");
+		sf::View view = window.getView();
+		sf::Vector2f viewCenter = view.getCenter();
+		sf::Vector2f viewSize = view.getSize();
+		sf::FloatRect textBounds = text.getLocalBounds();
+		float textX = viewCenter.x - textBounds.width / 2.f;
+		float textY = viewCenter.y - 100.f - textBounds.height / 2.f;
+		text.setPosition(textX, textY);
+		text.setFillColor(sf::Color(0, 15, 255));
+		
+		break;
+		}
+	case 1:
+		{
+		canMoveOn = false; // Reset the canMoveOn flag for level 1
+		time = 0; // Reset the time for level 1
+		text.setString("Level 01: Information Gathering\n\nIn this episode, we will walk around a park and gather clues.\nThe clues are scattered along the walkway, hidden within clickable objects.\nThe clues become visible when we inspect the object hiding the clues.\nWe have a notebook / cluebook that will automatically store the clues as they are discovered.\nThese clues may help us in the next level.");
+		sf::View view = window.getView();
+		sf::Vector2f viewCenter = view.getCenter();
+		sf::Vector2f viewSize = view.getSize();
+		sf::FloatRect textBounds = text.getLocalBounds();
+		float textX = viewCenter.x - textBounds.width / 2.f;
+		float textY = viewCenter.y - 100.f - textBounds.height / 2.f;
+		text.setPosition(textX, textY);
+		
+		break;
+	}
 	case 4:
 	{
+		time = 0; // Reset the time for level 4
+		canMoveOn = false; // Reset the canMoveOn flag for level 4
 		text.setString("TRY YOUR BEST TO FIND ALL THE FACTORS\n CAUSING POLUTION ON THIS BRIDGE");
 		sf::View view = window.getView();
 		sf::Vector2f viewCenter = view.getCenter();

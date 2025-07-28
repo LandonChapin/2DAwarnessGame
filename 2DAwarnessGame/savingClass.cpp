@@ -14,6 +14,9 @@ void savingClass::saveGame(int saveFileNum, int mapNumber, PlayerClass& player) 
         // Save map number
         saveFile << "MapNumber: " << mapNumber << std::endl;
 
+        // Save player name
+        saveFile << "PlayerName: " << player.getPlayerName() << std::endl;
+
         // Save player position from hitbox
         sf::Vector2f position = player.getPosition(); // Assuming getPosition() exists
         saveFile << "PlayerX: " << position.x << std::endl;
@@ -51,12 +54,16 @@ void savingClass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player,
         sf::Vector2f position;
         std::vector<s_Item> loadedInventory;
         int inventorySize = 0;
+        std::string loadedPlayerName;
 
         while (std::getline(loadFile, line)) {
             loadData.push_back(line); // Optional: keep for debugging or other use
 
             if (line.find("MapNumber: ") == 0) {
                 mapNumber = std::stoi(line.substr(11));
+            }
+            else if (line.find("PlayerName: ") == 0) {
+                loadedPlayerName = line.substr(12);
             }
             else if (line.find("PlayerX: ") == 0) {
                 position.x = std::stof(line.substr(9));
@@ -81,13 +88,16 @@ void savingClass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player,
             }
         }
 
+        // Set player name
+        player.setPlayerName(loadedPlayerName);
+
         // Set player position
         player.setPosition(position);
 
         // Set player inventory
         player.playerInventory = loadedInventory;
 
-		player.setScore(0); // Reset score
+        player.setScore(0); // Reset score
 
         for (int i = 0; i < inventorySize; ++i) {
             if (i < loadedInventory.size()) {
@@ -95,10 +105,10 @@ void savingClass::loadGame(int saveFileNum, int& mapNumber, PlayerClass& player,
                     npcManager.loadChest(i, true, mapNumber);
                 }
                 else {
-					npcManager.loadChest(i, false, mapNumber);
+                    npcManager.loadChest(i, false, mapNumber);
                 }
             }
-		}
+        }
 
         loadFile.close();
         std::cout << "Game loaded successfully!" << std::endl;

@@ -15,6 +15,7 @@ public:
 	void update(float dt, sf::RenderWindow& window) override;
 	void handleInput(float dt);
 	void setPlayerName(const std::string name);
+	std::string getPlayerName() const {return displayName;}
 	void initializeFont();
 	Hitbox hitbox;
 	std::vector <s_Item> getPlayerInventory() {

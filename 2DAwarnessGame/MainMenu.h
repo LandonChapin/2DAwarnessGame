@@ -14,6 +14,8 @@ public:
 	int update(sf::RenderWindow& window);
 
 	int getSaveSlot() const { return saveSlot; } // Getter for the save slot
+	std::string getPlayerNameInput() const { return playerNameInput; }
+
 private:
 	std::string fontString = "Assets/Fonts/Seagram_tfb/Seagram tfb.ttf"; // Path to the font file
 	sf::Font mainMenuFont; // Font for the main menu
@@ -31,9 +33,21 @@ private:
 		s_button{std::string("LOAD SLOT 3"), sf::Text(), Hitbox()},
 	};
 
+	std::vector<s_button> namingMenuButtonArray{
+		s_button{std::string("ENTER"), sf::Text(), Hitbox()},
+	};
+	
+    // Add a text box for player input
+        sf::RectangleShape nameInputBox; // Visual box for text input
+        sf::Text nameInputText;          // Text entered by the player
+        std::string playerNameInput = "";     // Stores the actual input string
+        bool isNameInputActive = false;  // Is the text box currently active for typing?
+        void handleTextInput(sf::RenderWindow& window);
+
 	int inputDelay = 0; // Delay for input
 
 	int menuNumber = 0; // Variable to track the current menu number
+	int interMenuNumber = 0; // Variable
 
 	void setupButton(sf::Text& button, const std::string& text, int charSize, sf::Color color, float x, float y);
 	void updateButtonHover(sf::Text& button, Hitbox& hitbox, const sf::Vector2f& mousePos);

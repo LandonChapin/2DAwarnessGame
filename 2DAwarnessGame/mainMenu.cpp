@@ -19,6 +19,10 @@ void MainMenuClass::initialize() {
 		setupButton(button.buttonText, button.buttonName, 35, sf::Color::Black, 900, 200 + (&button - &loadMenuButtonArray[0]) * 100);
 	}
 
+	for (auto& button : namingMenuButtonArray) {
+		setupButton(button.buttonText, button.buttonName, 35, sf::Color::Black, 600, 400 + (&button - &namingMenuButtonArray[0]) * 100);
+	}
+
 	for (auto& button : mainMenuButtonArray) {
 		button.buttonHitbox.setSize({ button.buttonText.getGlobalBounds().width, button.buttonText.getGlobalBounds().height });
 		button.buttonHitbox.setPosition(button.buttonText.getPosition());
@@ -29,6 +33,20 @@ void MainMenuClass::initialize() {
 		button.buttonHitbox.setPosition(button.buttonText.getPosition());
 		button.buttonHitbox.setColor(sf::Color(0, 2, 0, 100));
 	}
+
+	// Set up the naming menu button
+	for (auto& button : namingMenuButtonArray) {
+		button.buttonHitbox.setSize({ button.buttonText.getGlobalBounds().width, button.buttonText.getGlobalBounds().height });
+		button.buttonHitbox.setPosition(button.buttonText.getPosition());
+		button.buttonHitbox.setColor(sf::Color(0, 2, 0, 100));
+	}
+	nameInputBox.setSize(sf::Vector2f(400, 50)); // Set the size of the input box
+	nameInputBox.setFillColor(sf::Color(255, 255, 255, 150)); // Set the color of the input box
+	nameInputBox.setPosition(600, 300); // Set the position of the input box
+	nameInputText.setFont(mainMenuFont); // Set the font for the input text
+	nameInputText.setCharacterSize(24); // Set the character size for the input text
+	nameInputText.setFillColor(sf::Color::Black); // Set the color for the input text
+	nameInputText.setPosition(610, 310); // Set the position of the input text
 
 	// Load the background texture
 	if (!backgroundTexture.loadFromFile("Assets/Backgrounds/AG_Background_MainMenu.png")) {
@@ -44,15 +62,30 @@ void MainMenuClass::draw(sf::RenderWindow& window) {
 	// Draw the background
 	window.draw(background);
 	// Draw the buttons
-	if (!isSaving) {
+	switch (interMenuNumber) {
+	case 0:
+	{
 		for (const auto& button : mainMenuButtonArray) {
 			window.draw(button.buttonText);
 		}
+		break;
 	}
-	else {
+	case 1: {
 		for (const auto& button : loadMenuButtonArray) {
 			window.draw(button.buttonText);
 		}
+		break;
+	}
+	case 2: 
+	{
+		for (const auto& button : namingMenuButtonArray) {
+			window.draw(button.buttonText);
+		}
+		// Draw the name input box and text
+		window.draw(nameInputBox);
+		window.draw(nameInputText);
+		break;
+	}
 	}
 }
 
@@ -61,30 +94,32 @@ int MainMenuClass::update(sf::RenderWindow& window) {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	sf::Vector2f mousePosF = window.mapPixelToCoords(mousePos);
 
-	if (!isSaving) {
+	switch (interMenuNumber) {
+	case 0:
 		for (auto& button : mainMenuButtonArray) {
 			updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
 				if (button.buttonName == "NEW GAME" && inputDelay == 0) {
 					handleNewGameButtonClicked();
-					inputDelay = 300; // Delay to prevent multiple clicks
+					inputDelay = 700; // Delay to prevent multiple clicks
 				}
 				else if (button.buttonName == "LOAD GAME" && inputDelay == 0) {
 					handleLoadGameButtonClicked();
-					inputDelay = 300; // Delay to prevent multiple clicks
+					inputDelay = 700; // Delay to prevent multiple clicks
 				}
 				else if (button.buttonName == "SETTINGS" && inputDelay == 0) {
 					handleSettingsButtonClicked();
-					inputDelay = 300; // Delay to prevent multiple clicks
+					inputDelay = 700; // Delay to prevent multiple clicks
 				}
 				else if (button.buttonName == "QUIT" && inputDelay == 0) {
 					handleQuitButtonClicked(window);
-					inputDelay = 300; // Delay to prevent multiple clicks
+					inputDelay = 700; // Delay to prevent multiple clicks
 				}
 			}
 		};
-	}
-	else {
+		break;
+	
+	case 1: {
 		for (auto& button : loadMenuButtonArray) {
 			updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
@@ -101,7 +136,27 @@ int MainMenuClass::update(sf::RenderWindow& window) {
 					inputDelay = 300; // Delay to prevent multiple clicks
 				}
 			}
-	};
+		}
+		break;
+	}
+	case 2: {
+		for (auto& button : namingMenuButtonArray) {
+			updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && button.buttonHitbox.getBounds().contains(mousePosF)) {
+				if (button.buttonName == "ENTER" && inputDelay == 0) {
+					// Handle the enter button click
+					std::cout << "Player Name Entered: " << playerNameInput << std::endl;
+					menuNumber = 1; // Go to level 1
+					inputDelay = 300; // Delay to prevent multiple clicks
+				}
+			}
+		}
+		// Handle text input for player name
+		isNameInputActive = true; // Set the input active state to true
+		handleTextInput(window);
+
+		break;
+	}
 }
 	if (inputDelay > 0) {
 		inputDelay--;
@@ -135,12 +190,13 @@ void MainMenuClass::updateButtonHover(sf::Text& button, Hitbox& hitbox, const sf
 void MainMenuClass::handleNewGameButtonClicked() {
 	std::cout << "New Game button clicked!" << std::endl;
 	// Logic to start a new game
-	menuNumber = 1; // Set menu number to indicate new game started
+	//menuNumber = 1; // Set menu number to indicate new game started
+	interMenuNumber = 2;
 }
 void MainMenuClass::handleLoadGameButtonClicked() {
 	std::cout << "Load Game button clicked!" << std::endl;
 	isSaving = true; // Set the saving state to true
-	
+	interMenuNumber = 1;
 }
 void MainMenuClass::handleSettingsButtonClicked() {
 	std::cout << "Settings button clicked!" << std::endl;
@@ -185,3 +241,24 @@ void MainMenuClass::handleLoad3ButtonClicked() {
 	isSaving = false; // Exit the saving state
 	menuNumber = 10; // Set menu number to indicate loading game
 }
+
+void MainMenuClass::handleTextInput(sf::RenderWindow& window) {
+	// Handle text input for player name
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::TextEntered) {
+				if (isNameInputActive && inputDelay == 0) {
+					if (event.text.unicode < 128) { // ASCII only
+						char entered = static_cast<char>(event.text.unicode);
+						if (std::isalnum(entered) || entered == ' ') {
+							playerNameInput += entered;
+							inputDelay = 100;
+
+							nameInputText.setString(playerNameInput); // Update the text displayed in the input box
+						}
+					}
+				}
+			}
+		}
+		nameInputText.setPosition(nameInputBox.getPosition().x + 10, nameInputBox.getPosition().y + 10); // Adjust position inside the box
+	}
