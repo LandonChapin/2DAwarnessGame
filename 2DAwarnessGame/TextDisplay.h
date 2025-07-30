@@ -12,6 +12,7 @@ public:
 	void update(float dt, sf::RenderWindow& window, int levelNum, int variable);
 
 	bool canMoveOnToNextLevel() const { return canMoveOn; } // Getter for the canMoveOn flag
+	void setCanMoveOn(bool canMove) { canMoveOn = canMove; } // Setter for the canMoveOn flag
 
 	void initializeText(int levelNum, sf::RenderWindow& window);
 private:

@@ -41,22 +41,55 @@ void TextDisplayClass::update(float dt, sf::RenderWindow& window, int levelNum, 
 
 		case 1:
 			time += dt * 1000;
-			if (time >= 490000) {
+			if (this->variable != variable) {
+				this->variable = variable; // Update the variable if it has changed
+				initializeText(currentLevel, window); // Reinitialize the text if the variable has changed
+			}
+			if (time >= 1000000) {
+				this->variable = variable;
 				visible = false; // Ensure the text is visible for level 1
 				canMoveOn = true; // Reset the canMoveOn flag for level 1
-				std::cout << time << std::endl;
 			}
 			else {
-				visible = true; // Hide the text after 100 seconds
+				visible = true; 
 				canMoveOn = false; // Allow the player to move on
 				
 			}
+			break;
+		case 2:
+			time += dt * 1000;
+			if (time >= 1000000) {
+				this->variable = variable;
+				visible = false; // Ensure the text is visible for level 1
+				canMoveOn = true; // Reset the canMoveOn flag for level 1
+			}
+			else {
+				visible = true;
+				canMoveOn = false; // Allow the player to move on
+
+			}
+
+			break;
+		case 3:
+			time += dt * 1000;
+			if (time >= 1000000) {
+				this->variable = variable;
+				visible = false; // Ensure the text is visible for level 1
+				canMoveOn = true; // Reset the canMoveOn flag for level 1
+			}
+			else {
+				visible = true;
+				canMoveOn = false; // Allow the player to move on
+
+			}
+
+			break;
 		case 4:
 			this->variable = variable;
 			if (visible) {
 
 				time += dt * 1000;
-				if (time >= 500000 || variable != 0) {
+				if (time >= 1000000 || variable != 0) {
 					visible = false; // Hide the text after 100 seconds
 					time = 0; // Reset the time
 					if (variable >= 10) {
@@ -116,7 +149,6 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 		float textX = viewCenter.x - textBounds.width / 2.f;
 		float textY = viewCenter.y - 100.f - textBounds.height / 2.f;
 		text.setPosition(textX, textY);
-		text.setFillColor(sf::Color(0, 15, 255));
 		
 		break;
 		}
@@ -124,7 +156,14 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 		{
 		canMoveOn = false; // Reset the canMoveOn flag for level 1
 		time = 0; // Reset the time for level 1
-		text.setString("Level 01: Information Gathering\n\nIn this episode, we will walk around a park and gather clues.\nThe clues are scattered along the walkway, hidden within clickable objects.\nThe clues become visible when we inspect the object hiding the clues.\nWe have a notebook / cluebook that will automatically store the clues as they are discovered.\nThese clues may help us in the next level.");
+		visible = true; // Ensure the text is visible for level 1
+		if (variable == 0) {
+			text.setString("Level 01: Information Gathering\n\nIn this episode, we will walk around a park and gather clues.\nThe clues are scattered along the walkway, hidden within clickable objects.\nThe clues become visible when we inspect the object hiding the clues.\nWe have a notebook / cluebook that will automatically store the clues as they are discovered.\nThese clues may help us in the next level.");
+		}
+		else if (variable == 1) {
+			text.setString("Thanks for collecting all the clues. You are ready for the next level.");
+		}
+		
 		sf::View view = window.getView();
 		sf::Vector2f viewCenter = view.getCenter();
 		sf::Vector2f viewSize = view.getSize();
@@ -135,11 +174,42 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 		
 		break;
 	}
+	case 2:
+	{
+		canMoveOn = false; // Reset the canMoveOn flag for level 2
+		time = 0; // Reset the time for level 2
+		visible = true; // Ensure the text is visible for level 2
+		text.setString("Level 02: Park, Night:\nIn this episode, we will walk around a park and\n answer some questions using the knowledge\n we gathered from the previous level.");
+		sf::View view = window.getView();
+		sf::Vector2f viewCenter = view.getCenter();
+		sf::Vector2f viewSize = view.getSize();
+		sf::FloatRect textBounds = text.getLocalBounds();
+		float textX = viewCenter.x - textBounds.width / 2.f;
+		float textY = viewCenter.y - 100.f - textBounds.height / 2.f;
+		text.setPosition(textX, textY);
+		break;
+	}
+	case 3:
+	{
+		canMoveOn = false; // Reset the canMoveOn flag for level 3
+		time = 0; // Reset the time for level 3
+		visible = true; // Ensure the text is visible for level 3
+		text.setString("Level 03: Bridge Day:\nIn this episode, we will walk by a bridge,\n gather clues, and observe the surrounding causes of air pollution.\nWe have a notebook / cluebook that will automatically store the clues as they\n are discovered.These clues may help us in the next level.");
+		sf::View view = window.getView();
+		sf::Vector2f viewCenter = view.getCenter();
+		sf::Vector2f viewSize = view.getSize();
+		sf::FloatRect textBounds = text.getLocalBounds();
+		float textX = viewCenter.x - textBounds.width / 2.f;
+		float textY = viewCenter.y - 100.f - textBounds.height / 2.f;
+		text.setPosition(textX, textY);
+		break;
+	}
 	case 4:
 	{
+		variable = 0; // Reset the variable for level 4
 		time = 0; // Reset the time for level 4
 		canMoveOn = false; // Reset the canMoveOn flag for level 4
-		text.setString("TRY YOUR BEST TO FIND ALL THE FACTORS\n CAUSING POLUTION ON THIS BRIDGE");
+		text.setString("Level 04: Bridge, Night:\nIn this episode, we will walk around a bridge and\n inspect passing cars,\n and identify the ones releasing harmful gas into the air.");
 		sf::View view = window.getView();
 		sf::Vector2f viewCenter = view.getCenter();
 		sf::Vector2f viewSize = view.getSize();
@@ -181,4 +251,4 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 		text.setString("");
 		break;
 	}
-}
+};

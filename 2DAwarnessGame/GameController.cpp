@@ -100,14 +100,15 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 1:
 			// Logic for initializing level 1
 			
-			window.clear(sf::Color::Black);
+			window.clear(sf::Color(0, 30, 0));
 
-			
-			if (!textDisplay.canMoveOnToNextLevel()) {
-				textDisplay.update(dt, window, currentLevel, 0); // Update the text display
-				textDisplay.draw(window); // Draw the text display
+			// Commented out code puts a text display when the player gathers all five clues but has the issue where if reenabled breaks the level
+			if (player.getPlayerInventory()[0].isCollected && player.getPlayerInventory()[1].isCollected && player.getPlayerInventory()[2].isCollected && player.getPlayerInventory()[3].isCollected && player.getPlayerInventory()[4].isCollected && !textDisplay.canMoveOnToNextLevel()) {
+				//textDisplay.update(dt, window, currentLevel, 1); // Update the text display
+				//textDisplay.draw(window);
+				
 			}
-			else {
+			else if (textDisplay.canMoveOnToNextLevel()) {
 				world.update(player, window, dt); // Update the game world
 				player.update(dt, window);
 
@@ -121,6 +122,15 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 				player.draw(window);
 
 				world.drawForeground(window); // Draw the foreground elements of the world
+				if (player.getPlayerInventory()[0].isCollected && player.getPlayerInventory()[1].isCollected && player.getPlayerInventory()[2].isCollected && player.getPlayerInventory()[3].isCollected && player.getPlayerInventory()[4].isCollected) {
+					//textDisplay.setCanMoveOn(false); // Allow the player to move on to the next level
+				};
+			}
+			else if (!textDisplay.canMoveOnToNextLevel()){
+
+				textDisplay.update(dt, window, currentLevel, 0); // Update the text display
+				textDisplay.draw(window); // Draw the text display
+				
 			}
 			
 
@@ -132,22 +142,28 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 2:
 			// Logic for initializing level 2
 			
-			window.clear(sf::Color::Black);
+			window.clear(sf::Color(0, 30, 0));
 
+			textDisplay.update(dt, window, currentLevel, 0); // Update the text display for level 2
+			if (textDisplay.canMoveOnToNextLevel()) {
+				world.update(player, window, dt); // Update the game world
+				player.update(dt, window);
+
+				world.draw(window); // Draw the game world
+
+				npcManager->npcUpdate(dt, window, level); // Update the entities
+
+
+
+				player.draw(window);
+
+				world.drawForeground(window); // Draw the foreground elements of the world
+				npcManager->npcDraw(window, level); // Draw the entities
+			}
+			else {
+				textDisplay.draw(window); // Draw the text display
+			};
 			
-			world.update(player, window, dt); // Update the game world
-			player.update(dt, window);
-
-			world.draw(window); // Draw the game world
-
-			npcManager->npcUpdate(dt, window, level); // Update the entities
-			
-
-
-			player.draw(window);
-
-			world.drawForeground(window); // Draw the foreground elements of the world
-			npcManager->npcDraw(window, level); // Draw the entities
 
 			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
 
@@ -157,18 +173,25 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 3:
 			// Logic for initializing level 3
 			
-			window.clear(sf::Color::Black);
+			window.clear(sf::Color(0, 30, 0));
+
+			textDisplay.update(dt, window, currentLevel, 0); // Update the text display for level 3
+			if (textDisplay.canMoveOnToNextLevel()) {
+				world.update(player, window, dt); // Update the game world
+				player.update(dt, window);
+
+				npcManager->npcUpdate(dt, window, level); // Update the entities
+
+				world.draw(window); // Draw the game world
+				player.draw(window);
+
+				npcManager->npcDraw(window, level); // Draw the entities
+				world.drawForeground(window); // Draw the foreground elements of the world
+			}
+			else {
+				textDisplay.draw(window); // Draw the text display
+			};
 			
-			world.update(player, window, dt); // Update the game world
-			player.update(dt, window);
-
-			npcManager->npcUpdate(dt, window, level); // Update the entities
-
-			world.draw(window); // Draw the game world
-			player.draw(window);
-
-			npcManager->npcDraw(window, level); // Draw the entities
-			world.drawForeground(window); // Draw the foreground elements of the world
 
 			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
 			
@@ -179,7 +202,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 4:
 			// Logic for initializing level 4
 
-			window.clear(sf::Color::Black);
+			window.clear(sf::Color(0, 30, 0));
 
 			world.update(player, window, dt); // Update the game world
 			player.update(dt, window);
