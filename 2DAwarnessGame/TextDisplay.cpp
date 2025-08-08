@@ -209,6 +209,7 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 		variable = 0; // Reset the variable for level 4
 		time = 0; // Reset the time for level 4
 		canMoveOn = false; // Reset the canMoveOn flag for level 4
+		visible = true; // Ensure the text is visible for level 4
 		text.setString("Level 04: Bridge, Night:\nIn this episode, we will walk around a bridge and\n inspect passing cars,\n and identify the ones releasing harmful gas into the air.");
 		sf::View view = window.getView();
 		sf::Vector2f viewCenter = view.getCenter();
@@ -234,7 +235,7 @@ void TextDisplayClass::initializeText(int levelNum, sf::RenderWindow& window) {
 		canMoveOn = false;
 		}
 		else if (canMoveOn){
-			text.setString("Air pollution is contamination of the indoor\n or outdoor environment by any chemical, physical,\n or biological agent that modifies the natural characteristics of the atmosphere.\nWorld Health Organisation data show that almost the entire global population(99 %)\n breathes air that exceeds WHO guideline limits and contains high levels of pollutants,\n with low - and middle - income countries suffering the highest exposures.\nAir quality is closely linked to the Earth’s climate and ecosystems globally.\nWe must all work together to reduce air pollution to save the Earth and our future.\nWe only aimed to provide you with an idea and thus increase awareness of this issue through this game.\n\n\n* The data is collected from https ://www.who.int/health-topics/air-pollution#tab=tab_1");
+			text.setString("Air pollution is contamination of the indoor\n or outdoor environment by any chemical, physical,\n or biological agent that modifies the natural characteristics of the atmosphere.\nWorld Health Organisation data show that almost the entire global population(99 %)\n breathes air that exceeds WHO guideline limits and contains high levels of pollutants,\n with low - and middle - income countries suffering the highest exposures.\nAir quality is closely linked to the Earth’s climate and ecosystems globally.\nWe must all work together to reduce air pollution to save the Earth and our future.\nWe only aimed to provide you with an idea and thus increase awareness of this issue through this game.\n\n\n* The data is collected from https ://www.who.int/HEALTH-TOPICS/AIR-POLLUTION");
 			sf::View view = window.getView();
 			sf::Vector2f viewCenter = view.getCenter();
 			sf::Vector2f viewSize = view.getSize();

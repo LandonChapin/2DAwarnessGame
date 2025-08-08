@@ -64,7 +64,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 	case 0:
 	{
 		// Logic for initializing level 0
-		window.clear(sf::Color(0, 30, 0));
+		window.clear(sf::Color(0, 64, 0));
 
 		int level = mainMenu.update(window); // Update the main menu
 		if (level == 1) {
@@ -100,7 +100,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 1:
 			// Logic for initializing level 1
 			
-			window.clear(sf::Color(0, 30, 0));
+			window.clear(sf::Color(0, 64, 0));
 
 			// Commented out code puts a text display when the player gathers all five clues but has the issue where if reenabled breaks the level
 			if (player.getPlayerInventory()[0].isCollected && player.getPlayerInventory()[1].isCollected && player.getPlayerInventory()[2].isCollected && player.getPlayerInventory()[3].isCollected && player.getPlayerInventory()[4].isCollected && !textDisplay.canMoveOnToNextLevel()) {
@@ -142,7 +142,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 2:
 			// Logic for initializing level 2
 			
-			window.clear(sf::Color(0, 30, 0));
+			window.clear(sf::Color(0, 64, 0));
 
 			textDisplay.update(dt, window, currentLevel, 0); // Update the text display for level 2
 			if (textDisplay.canMoveOnToNextLevel()) {
@@ -173,7 +173,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 3:
 			// Logic for initializing level 3
 			
-			window.clear(sf::Color(0, 30, 0));
+			window.clear(sf::Color(0, 64, 0));
 
 			textDisplay.update(dt, window, currentLevel, 0); // Update the text display for level 3
 			if (textDisplay.canMoveOnToNextLevel()) {
@@ -202,7 +202,7 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 		case 4:
 			// Logic for initializing level 4
 
-			window.clear(sf::Color(0, 30, 0));
+			window.clear(sf::Color(0, 64, 0));
 
 			world.update(player, window, dt); // Update the game world
 			player.update(dt, window);
