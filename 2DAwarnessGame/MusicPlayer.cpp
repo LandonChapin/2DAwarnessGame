@@ -23,12 +23,18 @@ std::vector<std::string> musicFiles5 = {
 "Assets/Music/Bridge_Night.mp3",
 
 };
+std::vector<std::string> musicFiles6 = {
+    "Assets/Music/TheFirstBlossom.mp3",
+};
+
 std::vector<std::vector<std::string>> musicChoiceArray = {
     musicFiles1,
     musicFiles2,
     musicFiles1,
     musicFiles4,
     musicFiles5, 
+    musicFiles6,
+    musicFiles6,
 
 };
 

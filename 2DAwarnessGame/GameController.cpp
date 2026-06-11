@@ -244,6 +244,68 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			window.display();
 			break;
 
+		case 6:
+			// Logic for initializing level 5
+
+			window.clear(sf::Color(0, 64, 0));
+
+			textDisplay.update(dt, window, currentLevel, 0); // Update the text display for level 2
+			if (textDisplay.canMoveOnToNextLevel()) {
+				world.update(player, window, dt); // Update the game world
+				player.update(dt, window);
+
+				world.draw(window); // Draw the game world
+
+				npcManager->npcUpdate(dt, window, level); // Update the entities
+
+
+
+				player.draw(window);
+
+				world.drawForeground(window); // Draw the foreground elements of the world
+				npcManager->npcDraw(window, level); // Draw the entities
+			}
+			else {
+				textDisplay.draw(window); // Draw the text display
+			};
+
+
+			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
+
+			window.display();
+			break;
+
+		case 7:
+			// Logic for initializing level 6
+
+			window.clear(sf::Color(0, 64, 0));
+
+			textDisplay.update(dt, window, currentLevel, 0); // Update the text display for level 2
+			if (textDisplay.canMoveOnToNextLevel()) {
+				world.update(player, window, dt); // Update the game world
+				player.update(dt, window);
+
+				world.draw(window); // Draw the game world
+
+				npcManager->npcUpdate(dt, window, level); // Update the entities
+
+
+
+				player.draw(window);
+
+				world.drawForeground(window); // Draw the foreground elements of the world
+				npcManager->npcDraw(window, level); // Draw the entities
+			}
+			else {
+				textDisplay.draw(window); // Draw the text display
+			};
+
+
+			musicPlayer.update(dt, currentLevel); // Update the music player based on the current level
+
+			window.display();
+			break;
+
 		default:
 			std::cout << "No more levels to initialize." << std::endl;
 			break;

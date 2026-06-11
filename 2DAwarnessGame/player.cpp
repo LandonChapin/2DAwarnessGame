@@ -96,12 +96,12 @@ void PlayerClass::handleInput(float dt)
 		movement.x += speed * dt; // Move right
 		moved = true; // Set the moved flag to true
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !jumping && !falling && onGround) {
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !jumping && !falling && onGround) {
 		movement.y -= speed * dt * 10; // Move up
 		jumping = true; // Set the moved flag to true
 		onGround = false; // Set the onGround flag to false
 		playerGravity = -115; // Reset the player gravity
-	}
+	}*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
 		// Interact
 	}

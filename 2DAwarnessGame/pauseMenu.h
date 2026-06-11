@@ -114,13 +114,15 @@ private:
 		s_button{std::string("PARK: DAY"),sf::Text(), Hitbox()},
 		s_button{std::string("PARK: NIGHT"),sf::Text(), Hitbox()},
 		s_button{std::string("BRIDGE: DAY"),sf::Text(), Hitbox()},
-		s_button{std::string("BRIDGE: NIGHT"),sf::Text(), Hitbox()},
+		s_button{std::string("BRIDGE: DUSK"),sf::Text(), Hitbox()},
+		s_button{std::string("DOWNTOWN: EVENING"),sf::Text(), Hitbox()},
 	};
 
 	void handleParkDayButtonClicked();
 	void handleParkNightButtonClicked();
 	void handleBridgeDayButtonClicked();
 	void handleBridgeNightButtonClicked();
+	void handleDowntownButtonClicked();
 
 };
 

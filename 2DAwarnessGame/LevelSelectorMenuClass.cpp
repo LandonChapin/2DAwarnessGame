@@ -15,6 +15,7 @@ LevelSelectorMenuClass::LevelSelectorMenuClass() {
 	setupButton(pauseMenuButtonArray[1].buttonText, "PARK: NIGHT", 30, sf::Color::Black, 1000, 550);
 	setupButton(pauseMenuButtonArray[2].buttonText, "BRIDGE: DAY", 30, sf::Color::Black, 1000, 600);
 	setupButton(pauseMenuButtonArray[3].buttonText, "BRIDGE: NIGHT", 30, sf::Color::Black, 1000, 650);
+	setupButton(pauseMenuButtonArray[4].buttonText, "DOWNTOWN: EVENING", 30, sf::Color::Black, 1000, 700);
 }
 
 
@@ -125,3 +126,10 @@ void LevelSelectorMenuClass::handleBridgeNightButtonClicked() {
 	selectedLevel = 4; // Set the selected level to Bridge: Night
 };
 
+void LevelSelectorMenuClass::handleDowntownButtonClicked() {
+	selectedLevel = 6; // Set the selected level to Bridge: Night
+};
+
+void LevelSelectorMenuClass::handleBridgeNightButtonClicked() {
+	selectedLevel = 7; // Set the selected level to Bridge: Night
+};

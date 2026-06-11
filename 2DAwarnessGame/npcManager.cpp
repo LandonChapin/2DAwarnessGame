@@ -31,6 +31,22 @@ NpcManager::NpcManager(PlayerClass* player) {
 			new CarSpawner(10000, 590, 350, player),
 
 		},
+
+		// Placeholder for middle level
+		{
+			
+
+		},
+
+		// Level 5 NPCs
+		{
+			
+		},
+
+		// Level 6 NPCs
+		{
+			
+		},
 		
 	};
     
