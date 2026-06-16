@@ -121,7 +121,7 @@ private:
 	void handleParkDayButtonClicked();
 	void handleParkNightButtonClicked();
 	void handleBridgeDayButtonClicked();
-	void handleBridgeNightButtonClicked();
+	void handleBridgeDuskButtonClicked();
 	void handleDowntownButtonClicked();
 
 };

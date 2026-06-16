@@ -210,7 +210,8 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 			npcManager->npcUpdate(dt, window, level); // Update the entities
 			textDisplay.update(dt, window, currentLevel, player.getScore()); // Update the text display with the player's 
 			if (textDisplay.canMoveOnToNextLevel()) {
-				currentLevel++;
+				currentLevel = 6;
+				std::cout << "Moving on to level: " << currentLevel << std::endl;
 				world.initialize(currentLevel); // Initialize the world for the next level
 			}
 

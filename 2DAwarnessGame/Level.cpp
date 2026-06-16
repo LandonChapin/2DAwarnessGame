@@ -357,7 +357,7 @@ void PlayWorld::initialize(int episodeNum) {
 	{
 		// Load textures for area 3 (Bridge: Night)
 		mapFiles = {
-			"Assets/Backgrounds/AG_BackgroundSky_BridgeNight.png",
+		"Assets/Backgrounds/AG_BackgroundSky_BridgeNight.png",
 		"Assets/Backgrounds/Bridge/AG_Ground_Bridge.png",
 		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night1.png",
 		"Assets/Backgrounds/Bridge/AG_Background_Bridge_Night2.png",
@@ -383,6 +383,42 @@ void PlayWorld::initialize(int episodeNum) {
 		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
 		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
 		"Assets/Backgrounds/Bridge/AG_Background_Bridge_NightForeground_1.png",
+		};
+		break;
+	}
+
+	case 6: 
+	{
+		// Load textures for area 5 (Downtown: Evening) 
+		mapFiles = {
+		"Assets/Backgrounds/AG_BackgroundSky_BridgeNight.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Ground.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_4.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_4.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_4.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_6.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_7.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_8.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_9.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_10.png"
+
+
 		};
 		break;
 	}

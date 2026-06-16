@@ -163,6 +163,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="musicPlayer.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="npcManager.h" />
     <ClInclude Include="pauseMenu.h" />
     <ClInclude Include="player.h" />
