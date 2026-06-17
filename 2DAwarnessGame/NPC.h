@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include "player.h"
 #include "Interact.h"
-#include "questionMenu.h"
+#include "conversationMenu.h"
 
 class NPC : public EntityClass, public Interact {
 public:
@@ -34,7 +34,7 @@ private:
 	int info; // Information in the chest
 	int pInfo; // Player info, used to check if the player has already interacted with this chest
 
-	QuestionMenu questionMenu; // Question menu to display when the chest is opened
+	ConversationMenu conversationMenu; // Question menu to display when the chest is opened
 
 };
 
