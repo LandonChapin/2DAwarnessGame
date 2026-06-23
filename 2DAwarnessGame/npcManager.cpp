@@ -2,6 +2,7 @@
 #include "chest.h"
 #include "questionChest.h"
 #include "CarSpawner.h"
+#include "NPC.h"
 
 NpcManager::NpcManager(PlayerClass* player) {
 	// Initialize the NPC manager
@@ -40,7 +41,7 @@ NpcManager::NpcManager(PlayerClass* player) {
 
 		// Level 5 NPCs
 		{
-			
+			new NPC("Assets/NPCs/Chests/AG_Kid1.png","Assets/NPCs/Chests/AG_Kid2.png", 600, 665, 150.f, 150.f, 50, 50, player, 1, 3),
 		},
 
 		// Level 6 NPCs

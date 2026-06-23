@@ -422,6 +422,41 @@ void PlayWorld::initialize(int episodeNum) {
 		};
 		break;
 	}
+	case 7:
+	{
+		// Load textures for area 5 (Downtown: Evening) 
+		mapFiles = {
+		"Assets/Backgrounds/AG_BackgroundSky_BridgeNight.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Ground.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_4.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_4.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_4_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Background_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_1.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_2.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_3.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_4.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_5.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_6.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_7.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_8.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_9.png",
+		"Assets/Backgrounds/Downtown/AG_Background_Downtown_Foreground_10.png"
+
+
+		};
+		break;
+	}
 	}
 	// Load the textures
 	loadTextures(mapFiles);

@@ -263,8 +263,9 @@ void GameController::initializeLevel(int level, NpcManager* npcManager) {
 
 				player.draw(window);
 
-				world.drawForeground(window); // Draw the foreground elements of the world
 				npcManager->npcDraw(window, level); // Draw the entities
+				world.drawForeground(window); // Draw the foreground elements of the world
+				
 			}
 			else {
 				textDisplay.draw(window); // Draw the text display

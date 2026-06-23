@@ -39,7 +39,7 @@ public:
 		{"test", "test", false},
 		{"test", "test", false},
 		{"test", "test", false},
-		{"WHAT CAUSES THIS AIR POLUTION IN THE CITY", "Air pollution in cities is primarily caused\n by a combination of human activities, including transportation,\n industrial emissions, and construction,\na as well as natural factors like weather patterns.\n These sources release pollutants like particulate matter,\n nitrogen oxides, and sulfur dioxide,\n which can lead to smog, respiratory problems, and other health issues. ", false}
+		{"WHAT CAUSES THIS AIR POLUTION IN THE CITY", "Air pollution in cities is primarily caused\n by a combination of human activities, including transportation,\n industrial emissions, and construction,\na as well as natural factors like weather patterns.\n These sources release pollutants like particulate matter,\n nitrogen oxides, and sulfur dioxide,\n which can lead to smog, respiratory problems, and other health issues. ", false},
 
 	};
 

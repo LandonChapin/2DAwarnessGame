@@ -54,46 +54,30 @@ void NPC::update(float dt, sf::RenderWindow& window) {
 	// Update the hitbox position to match the sprite position  
 	hitbox.setPosition(sf::Vector2f(sprite.getPosition()));
 	if (player) {
+
 		if (detectPlayer(*player)) {
 			isColliding = true;
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && isOpen == 0) {
-				// Interact
-				std::cout << "Interacting with person" << std::endl;
 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !conversationMenu.getActive()) {
 
-				if (player) {
-					PlayerClass* playerCast = dynamic_cast<PlayerClass*>(player);
-					if (playerCast) {
-						playerCast->playerInventory[pInfo].isCollected = true; // Add the item to the player's inventory
-					}
-					else {
-						std::cerr << "Error: player is not of type PlayerClass!" << std::endl;
-					}
-				}
-				// Open the question menu
+				std::cout << "Interacting with person\n";
+
+				conversationMenu.initializeMenu(info, sprite.getPosition());
 				conversationMenu.setActive(true);
-
 			}
-			if (conversationMenu.getActive() && isOpen == 0) {
 
-				isOpen = conversationMenu.update(window, sprite.getPosition()); // Update the question menu if it's active
+			if (conversationMenu.getActive()) {
+				conversationMenu.update(window, sprite.getPosition());
 
-				if (isOpen == 2) {
-					// Logic for whatever happens when they open a chest
+				if (!conversationMenu.getActive()) {
 					sprite.setTexture(textureOpen);
-					conversationMenu.setActive(false); // Deactivate the question menu after answering
-					std::cout << "Question menu updated, isOpen state: " << isOpen << std::endl;
-				}
-				else if (isOpen == 1) {
-					std::cout << "Question menu updated, isOpen state: " << isOpen << std::endl;
-					isOpen = 0; // Reset the chest state if the answer is wrong
-					conversationMenu.setActive(false); // Deactivate the question menu after answering
 				}
 			}
 		}
 		else {
 			isColliding = false;
 		}
+
 	}
 
 }
@@ -103,15 +87,9 @@ void NPC::draw(sf::RenderWindow& window) {
 	// Draw the object
 	window.draw(sprite);
 
-
-	if (isColliding && isOpen == 0) {
-
-		// Draw the hitbox
-		//hitbox.draw(window);
+	if (isColliding) {
 		if (conversationMenu.getActive()) {
-
-			conversationMenu.draw(window); // Update the question menu if it's active
-
+			conversationMenu.draw(window);// Update the question menu if it's active
 		}
 		else {
 			window.draw(text); // Draw the text when colliding with the player
@@ -119,11 +97,12 @@ void NPC::draw(sf::RenderWindow& window) {
 	}
 
 
+
 }
 
 void NPC::setOpen(bool open) {
 	isOpen = open;
-	if (isOpen == 2) {
+	if (!conversationMenu.getActive()) {
 		sprite.setTexture(textureOpen); // Change the texture to the open chest
 	}
 	else {

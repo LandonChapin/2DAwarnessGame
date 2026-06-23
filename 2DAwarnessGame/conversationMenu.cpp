@@ -1,80 +1,134 @@
 #include "conversationMenu.h"
 
-void ConversationMenu::draw(sf::RenderWindow& window) {
-	if (isActive) {
-		// Draw the question text
-		window.draw(questionText);
 
-		// Draw the answer buttons
+
+void ConversationMenu::draw(sf::RenderWindow& window) {
+	if (!isActive) return;
+
+	window.draw(questionText);
+
+	if (showingResponse) {
+		continueText.setPosition(questionText.getPosition().x,
+			questionText.getPosition().y + 100);
+		window.draw(continueText);
+	}
+	else {
 		for (auto& button : answerButtons) {
-			if (button.buttonText.getString() == "n") {
-				continue; // Skip buttons with "n" as the text
+			if (button.buttonText.getString() != "n") {
+				window.draw(button.buttonText);
 			}
-			window.draw(button.buttonText);
 		}
 	}
 }
 
-int ConversationMenu::update(sf::RenderWindow& window, sf::Vector2f owner) { // Returns true if the correct answer is selected, false otherwise
-	if (isActive) {
-		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-		sf::Vector2f mousePosF = window.mapPixelToCoords(mousePos);
-		// Check for mouse hover and clicks on answer buttons
 
-		for (auto& button : answerButtons) {
-			button.buttonHitbox.setPosition(button.buttonText.getPosition());
-			if (button.buttonHitbox.getBounds().contains(mousePosF)) {
-				updateButtonHover(button.buttonText, button.buttonHitbox, mousePosF);
 
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					// Handle button click
-					std::cout << "Clicked: " << button.buttonName << std::endl;
-					if (button.buttonName == "Answer 1") {
-						return handleAnswer1ButtonClicked();
-					}
-					else if (button.buttonName == "Answer 2") {
-						return handleAnswer2ButtonClicked();
-					}
-					else if (button.buttonName == "Answer 3") {
-						return handleAnswer3ButtonClicked();
-					}
-					else if (button.buttonName == "Answer 4") {
-						return handleAnswer4ButtonClicked();
-					}
 
+int ConversationMenu::update(sf::RenderWindow& window, sf::Vector2f owner) {
+	updateButtonPositions(owner);
+	if (!isActive) return 0;
+
+	sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+	auto& convo = conversationArray[currentConversation];
+	bool mousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+	bool mouseClicked = mousePressed && !mouseWasPressed;
+	mouseWasPressed = mousePressed;
+	// If showing NPC response, wait for click to continue
+
+
+	if (showingResponse) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+
+			showingResponse = false;
+
+			bool allUsed = true;
+			for (auto& opt : convo.options) {
+				if (!opt.used) {
+					allUsed = false;
+					break;
 				}
 			}
-			else {
-				button.buttonText.setFillColor(sf::Color::White); // Default color
 
+			if (allUsed) {
+				questionText.setString(convo.closingLine);
+				isActive = false;
+				return 2;
+			}
+
+			questionText.setString(convo.openingLine);
+			updateButtons(owner);
+		}
+
+		return 0;
+	}
+
+
+
+	// Handle button clicks
+
+	for (auto& button : answerButtons) {
+		if (button.buttonText.getString() == "n") continue;
+
+		button.buttonHitbox.setPosition(button.buttonText.getPosition());
+
+		if (button.buttonHitbox.getBounds().contains(mousePos)) {
+			button.buttonText.setFillColor(sf::Color::Yellow);
+
+			if (mouseClicked) {
+
+				if (button.buttonName == "-1") continue;
+
+				int index = std::stoi(button.buttonName);
+
+				if (index < 0 || index >= convo.options.size()) {
+					continue;
+				}
+
+
+				// Mark as used
+				convo.options[index].used = true;
+
+				// Show NPC response
+				questionText.setString(convo.options[index].npcResponse);
+				showingResponse = true;
+
+				return 0;
 			}
 		}
+		else {
+			button.buttonText.setFillColor(sf::Color::White);
+		}
 	}
-	// Update the position of the question text and buttons based on the owner's position
-	updateButtonPositions(owner);
 
-	return 0; // No answer selected yet
+
+	return 0;
 }
 
-void ConversationMenu::initializeMenu(int questionNumber, sf::Vector2f owner) {
-	currentQuestionIndex = questionNumber;
+
+
+void ConversationMenu::initializeMenu(int index, sf::Vector2f owner) {
+	currentConversation = index;
+	isActive = false;
+	showingResponse = false;
 
 	if (!font.loadFromFile("Assets/Fonts/Seagram_tfb/Seagram tfb.ttf")) {
 		std::cerr << "Error loading font!" << std::endl;
 	}
 
-	// Load the question text
 	questionText.setFont(font);
-	questionText.setString(conversationArray[questionNumber].statment1);
 	questionText.setCharacterSize(24);
 	questionText.setFillColor(sf::Color::White);
-	questionText.setPosition(owner.x - 200, owner.y - 250); // Position above the entity
 
-	// Set up answer buttons
-	setupButton(answerButtons[0].buttonText, conversationArray[questionNumber].statment2, 20, sf::Color::White, owner.x + 300, owner.y + 0);
-	setupButton(answerButtons[1].buttonText, conversationArray[questionNumber].statment3, 20, sf::Color::White, owner.x + 300, owner.y + 50);
-	setupButton(answerButtons[2].buttonText, conversationArray[questionNumber].statment4, 20, sf::Color::White, owner.x + 300, owner.y + 100);
-	setupButton(answerButtons[3].buttonText, conversationArray[questionNumber].statment9, 20, sf::Color::White, owner.x + 300, owner.y + 150);
+	questionText.setString(conversationArray[index].openingLine);
+
+
+	continueText.setFont(font);
+	continueText.setCharacterSize(18);
+	continueText.setFillColor(sf::Color::Yellow);
+	continueText.setString("Press E to continue");
+
+
+	updateButtons(owner);
 
 }
 
@@ -111,38 +165,39 @@ void ConversationMenu::updateButtonPositions(sf::Vector2f owner) {
 	}
 }
 
-int ConversationMenu::handleAnswer1ButtonClicked() {
-	if (currentQuestionIndex < conversationArray.size() /*&& conversationArray[currentQuestionIndex].correctAnswer == 1*/) {
-		std::cout << "Correct answer selected!" << std::endl;
-		return 2; // Correct answer
+void ConversationMenu::updateButtons(sf::Vector2f owner) {
+	auto& convo = conversationArray[currentConversation];
+
+	int visibleIndex = 0;
+
+
+
+	for (size_t i = 0; i < answerButtons.size(); i++) {
+		answerButtons[i].buttonText.setString("n");
 	}
-	std::cout << "Incorrect answer selected!" << std::endl;
-	return 1; // Incorrect answer
+
+
+	for (auto& b : answerButtons) {
+		b.buttonName = "-1"; // invalid safe value
+	}
+
+
+	for (size_t i = 0; i < convo.options.size(); i++) {
+		if (!convo.options[i].used && visibleIndex < answerButtons.size()) {
+			setupButton(
+				answerButtons[visibleIndex].buttonText,
+				convo.options[i].playerLine,
+				20,
+				sf::Color::White,
+				owner.x + 300,
+				owner.y + visibleIndex * 50
+			);
+
+			// Store index inside button name
+			answerButtons[visibleIndex].buttonName = std::to_string(i);
+
+			visibleIndex++;
+		}
+	}
 }
 
-int ConversationMenu::handleAnswer2ButtonClicked() {
-	if (currentQuestionIndex < conversationArray.size() /*&& conversationArray[currentQuestionIndex].correctAnswer == 2*/) {
-		std::cout << "Correct answer selected!" << std::endl;
-		return 2; // Correct answer
-	}
-	std::cout << "Incorrect answer selected!" << std::endl;
-	return 1; // Incorrect answer
-}
-
-int ConversationMenu::handleAnswer3ButtonClicked() {
-	if (currentQuestionIndex < conversationArray.size() /*&& conversationArray[currentQuestionIndex].correctAnswer == 3*/) {
-		std::cout << "Correct answer selected!" << std::endl;
-		return 2; // Correct answer
-	}
-	std::cout << "Incorrect answer selected!" << std::endl;
-	return 1; // Incorrect answer
-}
-
-int ConversationMenu::handleAnswer4ButtonClicked() {
-	if (currentQuestionIndex < conversationArray.size() /*&& conversationArray[currentQuestionIndex].correctAnswer == 4*/) {
-		std::cout << "Correct answer selected!" << std::endl;
-		return 2; // Correct answer
-	}
-	std::cout << "Incorrect answer selected!" << std::endl;
-	return 1; // Incorrect answer
-}

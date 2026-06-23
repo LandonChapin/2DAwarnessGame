@@ -15,6 +15,7 @@ LevelSelectorMenuClass::LevelSelectorMenuClass() {
 	setupButton(pauseMenuButtonArray[2].buttonText, "BRIDGE: DAY", 30, sf::Color::Black, 1000, 600);
 	setupButton(pauseMenuButtonArray[3].buttonText, "BRIDGE: DUSK", 30, sf::Color::Black, 1000, 650);
 	setupButton(pauseMenuButtonArray[4].buttonText, "DOWNTOWN: EVENING", 30, sf::Color::Black, 1000, 700);
+	setupButton(pauseMenuButtonArray[5].buttonText, "OFFICE: NIGHT", 30, sf::Color::Black, 1000, 750);
 }
 
 
@@ -72,6 +73,11 @@ void LevelSelectorMenuClass::update(sf::RenderWindow& window, PlayerClass& playe
 			else if (button.buttonName == "DOWNTOWN: EVENING" && inputDelay == 0) {
 				std::cout << "Downtown button clicked!" << std::endl;
 				handleDowntownButtonClicked();
+				inputDelay = 500; // Delay to prevent multiple clicks
+			}
+			else if (button.buttonName == "OFFICE: NIGHT" && inputDelay == 0) {
+				std::cout << "Office button clicked!" << std::endl;
+				handleOfficeButtonClicked();
 				inputDelay = 500; // Delay to prevent multiple clicks
 			}
 
@@ -134,6 +140,6 @@ void LevelSelectorMenuClass::handleDowntownButtonClicked() {
 	selectedLevel = 6; // Set the selected level to Downtown: Evening
 };
 
-/*void LevelSelectorMenuClass::handleBridgeNightButtonClicked() {
+void LevelSelectorMenuClass::handleOfficeButtonClicked() {
 	selectedLevel = 7; // Set the selected level to Bridge: Night
-};*/
+};
